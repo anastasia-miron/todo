@@ -1,0 +1,15 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 12px;
+}
+.navbar__avatar {
+    font-size: 20px;
+    border: 1px solid var(--pico-color);
+}
+.navbar__placeholder {
+    width: 24px;
+    height: 24px;
+}

@@ -1,0 +1,6 @@
+.signin_page__actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}

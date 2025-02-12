@@ -1,0 +1,61 @@
+:root {
+  font-family: 'Open Sans', sans-serif;
+  --pico-font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+}
+
+.page {
+  width: 100%;
+}
+
+.page__header {
+  position: sticky;
+  top: 0;
+  background-color: var(--pico-background-color);
+  text-align: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page__header .btn-placeholder {
+  width: 24px;
+  height: 24px;
+}
+
+.page__header .back-btn {
+  cursor: pointer;
+}
+
+.page__logo {
+  height: 60px;
+}
+
+h1 {
+  --pico-font-size: 1.6rem;
+  text-align: center;
+}
+
+h2 {
+  --pico-font-size: 1.4rem;
+  text-align: center;
+}
+
+h3 {
+  --pico-font-size: 1.2rem;
+  text-align: center;
+}
