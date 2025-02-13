@@ -23,7 +23,7 @@ const NavBar: React.FC = () => {
             {user && <details className="dropdown navbar__menu">
                 <summary role="menu"><Avatar user={user} className="navbar__avatar" /></summary>
                 <ul dir="rtl">
-                    <li><a href="#">Profile</a></li>
+                <li><a onClick={() => navigate('/app/profile')}>Profile</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Security</a></li>
                     <li><a onClick={handleLogout}>Logout</a></li>

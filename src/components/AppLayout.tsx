@@ -12,6 +12,8 @@ const AppLayout: React.FC = () => {
         return <Navigate to="/sign-in" />
     }
 
+    console.log(user, location.pathname)
+
     if (user.type === UserTypeEnum.NONE && location.pathname !== "/app/user-type") {
         return <Navigate to="/app/user-type" />
     } 
@@ -23,7 +25,6 @@ const AppLayout: React.FC = () => {
     return (
         <div>
             <NavBar />
-            <h1>AppLayout</h1>
             <Outlet />
         </div>
     );

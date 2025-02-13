@@ -36,7 +36,7 @@ const SignUpPage: React.FC = () => {
             updateUser(response.data);
             toast.success('Account created successfully!');
             await navigate('/app/user-type', { replace: true });
-        }
+ }
     });
 
     if (user) {
