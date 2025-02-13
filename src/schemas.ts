@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { UserTypeEnum } from './typings/models';
 
 
 export const loginSchema = Yup.object().shape({
@@ -14,4 +15,9 @@ export const registerSchema = Yup.object().shape({
     repeatPassword: Yup.string()
         .oneOf([Yup.ref('password')], 'Passwords must match!')
         .required('Repeat password is required'),
+});
+
+export const userTypeSchema = Yup.object().shape({
+    type: Yup.string().oneOf([UserTypeEnum.BENEFICIARY, UserTypeEnum.VOLUNTEER]).required('User type is required'),
+    
 });

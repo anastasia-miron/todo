@@ -11,8 +11,8 @@ const Avatar: React.FC<Props> = (props) => {
     const {user, className} = props;
     return (
         <div className={clsx('avatar', className)}>
-            {user.profile_img 
-            ? (<img className="avatar__image" alt={user.username} src={user.profile_img} />) 
+            {user.profileImg 
+            ? (<img className="avatar__image" alt={user.username} src={user.profileImg} />) 
             : (<div className="avatar__initials">{user.username.substring(0, 2) || 'NA'}</div>)}
         </div>
     );

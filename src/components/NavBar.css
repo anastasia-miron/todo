@@ -7,9 +7,24 @@
 }
 .navbar__avatar {
     font-size: 20px;
-    border: 1px solid var(--pico-color);
 }
 .navbar__placeholder {
     width: 24px;
     height: 24px;
+}
+
+.navbar__menu.dropdown {
+    margin-bottom: 0;
+    
+}
+.navbar__menu.dropdown summary {
+    line-height: normal;
+}
+
+.navbar__menu ul li a {
+    cursor: pointer;
+}
+
+.navbar__menu.dropdown summary::after {
+    content: none;
 }

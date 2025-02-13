@@ -1,12 +1,13 @@
 import React from "react";
 import Logo from "../components/Logo";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
 import apiService from "../services/api.service";
 import { toast } from 'react-toastify';
 import useAbortSignal from "../hooks/useAbortSignal";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const DEFAULT_VALUES = {
     email: '',
@@ -16,6 +17,7 @@ const DEFAULT_VALUES = {
 const SignInPage: React.FC = () => {
     const navigate = useNavigate();
     const signal = useAbortSignal();
+    const {user, updateUser} = useCurrentUser();
 
     const { values, handleSubmit, setFieldValue, dirty, isValid } = useFormik({
         initialValues: DEFAULT_VALUES,
@@ -26,11 +28,17 @@ const SignInPage: React.FC = () => {
             if (!response.success) {
                 return toast.error(response.message);
             }
-            localStorage.setItem('token', response.data);
+            
+            updateUser(response.data);
             await navigate('/app/profile', { replace: true });
 
         }
-    })
+    });
+
+    if (user) {
+        return <Navigate to="/app/profile" />
+    }
+
     return (
         <div className="page">
             <form onSubmit={handleSubmit}>

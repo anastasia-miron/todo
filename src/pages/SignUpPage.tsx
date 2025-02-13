@@ -1,12 +1,15 @@
 import React from "react";
 import Logo from "../components/Logo";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import { useFormik } from "formik";
 import { registerSchema } from "../schemas";
 import apiService from "../services/api.service";
 import { toast } from 'react-toastify';
 import useAbortSignal from "../hooks/useAbortSignal";
+import useCurrentUser from "../hooks/useCurrentUser";
+
+
 
 const DEFAULT_VALUES = {
     username: '',
@@ -18,6 +21,7 @@ const DEFAULT_VALUES = {
 
 const SignUpPage: React.FC = () => {
     const navigate = useNavigate();
+    const {user, updateUser} = useCurrentUser();
     const signal = useAbortSignal();
 
     const { values, handleSubmit, setFieldValue, errors, touched } = useFormik({
@@ -29,10 +33,15 @@ const SignUpPage: React.FC = () => {
             if (!response.success) {
                 return toast.error(response.message);
             }
+            updateUser(response.data);
             toast.success('Account created successfully!');
-            await navigate('/app/profile', { replace: true });
+            await navigate('/app/user-type', { replace: true });
         }
     });
+
+    if (user) {
+        return <Navigate to="/app/profile" />
+    }
 
     return (
         <div className="page">
