@@ -1,11 +1,5 @@
-import React from "react";
-
-const Request: React.FC = () => {
-    return (
-        <div>
-            <h1>Home</h1>
-        </div>
-    );
+const RequestPage: React.FC = () => {
+    return (<div>Request Page</div>)
 }
 
-export default Request
+export default RequestPage;

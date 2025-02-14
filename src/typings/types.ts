@@ -1,5 +1,5 @@
 import { JWTPayload } from "jose"
-import { UserModel } from "./models"
+import { RequestUrgencyEnum, UserModel } from "./models"
 
 export type ApiResponseSuccess<T> = {
     success: true
@@ -9,12 +9,19 @@ export type ApiResponseSuccess<T> = {
 export type ApiResponseError = {
     success: false,
     message: string,
-    error?: {issues: unknown[]}
+    error?: { issues: unknown[] }
 }
 
-export type ApiResponse<T> = ApiResponseSuccess<T>  | ApiResponseError;
- 
+export type ApiResponse<T> = ApiResponseSuccess<T> | ApiResponseError;
+
 
 export type AppJwtPayload = JWTPayload & {
     user: UserModel
+}
+
+export interface RequestPayload {
+    title: string;
+    description: string;
+    location: string;
+    urgency: RequestUrgencyEnum;
 }

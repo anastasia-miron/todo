@@ -17,15 +17,6 @@ import ReviewPage from "./pages/ReviewPage";
 import BeneficiaryPage from "./pages/BeneficiaryPage";
 import VolunteerPage from "./pages/VolunteerPage";
 
-
-
-
-const user = {
-  name: 'Hedy Lamarr',
-  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
-  imageSize: 90,
-};
-
 export default function Profile() {
   return (
     <Routes>
@@ -38,7 +29,7 @@ export default function Profile() {
         <Route path="/app/user-type" element={<UserTypePage />} />
         <Route path="/app/profile" element={<ProfilePage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
-        <Route path="/app/requests" element={<RequestListPage />} />
+        <Route path="/app/" element={<RequestListPage />} />
         <Route path="/app/requests/:id" element={<RequestPage />} />
         <Route path="/app/review/:id" element={<ReviewPage />} />
         <Route path="/app/review" element={<ReviewListPage />} />

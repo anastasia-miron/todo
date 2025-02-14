@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { UserTypeEnum } from './typings/models';
+import { RequestUrgencyEnum, UserTypeEnum } from './typings/models';
 import { user } from './mock';
 
 
@@ -20,7 +20,7 @@ export const registerSchema = Yup.object().shape({
 
 export const userTypeSchema = Yup.object().shape({
     type: Yup.string().oneOf([UserTypeEnum.BENEFICIARY, UserTypeEnum.VOLUNTEER]).required('User type is required'),
-    
+
 });
 
 
@@ -37,3 +37,10 @@ export const volunteerPageSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
     username: Yup.string().required('Username is required'),
 });
+
+export const requestSchema = Yup.object().shape({
+    title: Yup.string(),
+    description: Yup.string(),
+    location: Yup.string(),
+    urgency: Yup.string().oneOf([RequestUrgencyEnum.LOW, RequestUrgencyEnum.MEDIUM, RequestUrgencyEnum.HIGH])
+})

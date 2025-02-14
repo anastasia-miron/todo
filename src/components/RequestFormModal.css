@@ -1,0 +1,13 @@
+.request-modal__header {
+    position: relative;
+}
+
+.request-modal__close {
+    position: absolute;
+    right: 18px;
+    top: 14px;
+    background: none;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}

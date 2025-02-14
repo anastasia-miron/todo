@@ -30,3 +30,29 @@ export interface ProfileModel {
     skills: string | null;
 }
 
+export interface RequestModel {
+    id: string;
+    title: string;
+    description: string;
+    location: string;
+    urgency: RequestUrgencyEnum;
+    status: RequestStatusEnum;
+    beneficiary_name: string;
+    beneficiary_profile_img: string;
+    created_at: string;
+}
+
+
+export enum RequestUrgencyEnum {
+    LOW = "low",
+    MEDIUM = "medium",
+    HIGH = "high",
+}
+
+export enum RequestStatusEnum {
+    OPEN = "open",
+    IN_PROGRESS = "in_progress",
+    CANCELED = "canceled",
+    DONE = "done",
+}
+
