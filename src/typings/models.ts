@@ -28,6 +28,7 @@ export interface ProfileModel {
     location: string | null;
     availability: string | null;
     skills: string | null;
+    rating: number;
 }
 
 export interface RequestModel {
@@ -37,11 +38,20 @@ export interface RequestModel {
     location: string;
     urgency: RequestUrgencyEnum;
     status: RequestStatusEnum;
-    beneficiary_name: string;
-    beneficiary_profile_img: string;
     created_at: string;
+    beneficiary: UserModel;
+    volunteer: UserModel | null;
 }
 
+export interface ReviewModel {
+    id: string;
+    request: RequestModel;
+    from: UserModel;
+    to: UserModel;
+    rating: number;
+    comment: string;
+    createdAt: string
+}
 
 export enum RequestUrgencyEnum {
     LOW = "low",

@@ -4,6 +4,23 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 class ApiService {
 
+    private async request<Response = unknown>(url: string, init: RequestInit): Promise<ApiResponse<Response>> {
+        try {
+            const response = await fetch(apiUrl + url, {
+                ...init,
+                ...this.getRequestOptions()
+            });
+            const result: ApiResponse<Response> = await response.json();
+            return result;
+        } catch (error) {
+            console.error(error);
+            return {
+                success: false,
+                message: 'Fetch data failed'
+            }
+        }
+    }
+
     private getRequestOptions(): RequestInit {
         const token = localStorage.getItem('token');
 
@@ -11,53 +28,27 @@ class ApiService {
             'Content-Type': 'application/json',
         }
 
-        if(token) {
-            headers.Authorization =`Bearer ${token}`;
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
         }
 
-        return {headers};
+        return { headers };
     }
 
     async get<Response = unknown>(url: string, init: RequestInit = {}): Promise<ApiResponse<Response>> {
-        const response = await fetch(apiUrl + url, {
-            ...init,
-            ...this.getRequestOptions(),
-            method: 'GET',
-        });
-        const result: ApiResponse<Response> = await response.json();
-        return result;
+        return this.request<Response>(url, { ...init, method: 'GET' });
     }
 
     async post<Response = unknown, Payload = unknown>(url: string, data: Payload, init: RequestInit = {}): Promise<ApiResponse<Response>> {
-        const response = await fetch(apiUrl + url, {
-            ...init,
-            ...this.getRequestOptions(),
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
-        const result: ApiResponse<Response> = await response.json();
-        return result;
+        return this.request<Response>(url, { ...init, method: 'POST', body: JSON.stringify(data) });
     }
 
     async put<Response = unknown, Payload = unknown>(url: string, data: Payload, init: RequestInit = {}): Promise<ApiResponse<Response>> {
-        const response = await fetch(apiUrl + url, {
-            ...init,
-            ...this.getRequestOptions(),
-            method: 'PUT',
-            body: JSON.stringify(data)
-        });
-        const result: ApiResponse<Response> = await response.json();
-        return result;
+        return this.request<Response>(url, { ...init, method: 'PUT', body: JSON.stringify(data) });
     }
 
     async delete<Response = unknown>(url: string, init: RequestInit = {}) {
-        const response = await fetch(apiUrl + url, {
-            ...init,
-            ...this.getRequestOptions(),
-            method: 'DELETE',
-        });
-        const result: ApiResponse<Response> = await response.json();
-        return result;
+        return this.request<Response>(url, { ...init, method: 'DELETE' });
     }
 }
 

@@ -7,6 +7,12 @@ import { toast } from "react-toastify";
 import RequestFormModal from "./RequestFormModal";
 import { RequestPayload } from "../typings/types";
 import useCurrentUser from "../hooks/useCurrentUser";
+import Avatar from "./Avatar";
+import { useNavigate } from "react-router";
+import ConfirmModal from "./ConfirmModal";
+import { EyeIcon } from "lucide-react";
+import StatusBadge from "./StatusBadge";
+
 
 
 interface RequestItemProps {
@@ -18,8 +24,13 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
     const { request, onChange } = props;
     const signal = useAbortSignal();
     const { user } = useCurrentUser();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [confirmAccept, setConfirmAccept] = useState<boolean>(false);
+    const [confirmReject, setConfirmReject] = useState<boolean>(false);
+    const [confirmCancel, setConfirmCancel] = useState<boolean>(false);
+    // const [openModal, setOpenModal] = useState<boolean>(false);
 
     const handleAccept = async () => {
         setIsLoading(true);
@@ -30,29 +41,14 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
             toast.error(response.message);
             return;
         }
+        setConfirmAccept(false);
         onChange({
             ...request,
             status: RequestStatusEnum.IN_PROGRESS
         });
-        setOpenModal(false);
-    
-     }
+        navigate(`/app/requests/${request.id}`)
+    }
 
-
-    const handleComplete = async () => {
-        setIsLoading(true);
-        const response = await apiService.post(`/requests/${request.id}/complete`, {}, { signal });
-        if (signal.aborted) return;
-        setIsLoading(false);
-        if (!response.success) {
-            toast.error(response.message);
-            return
-        }
-        onChange({
-            ...request,
-            status: RequestStatusEnum.DONE
-        });
-    };
 
     const handleReject = async () => {
         setIsLoading(true);
@@ -63,6 +59,7 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
             toast.error(response.message);
             return;
         }
+        setConfirmReject(false);
         onChange({
             ...request,
             status: RequestStatusEnum.OPEN
@@ -77,72 +74,57 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
             toast.error(response.message);
             return;
         }
+        setConfirmCancel(false);
         onChange({
             ...request,
             status: RequestStatusEnum.CANCELED
         });
-    
-    }
-    const handleReview = async () => {
-      // Show review Modal
-    }
-    
-    const handleSave = async (data: RequestPayload) => {
-        setIsLoading(true);
-        const response = await apiService.put(`/requests/${request.id}`, data, { signal });
-        if (signal.aborted) return;
-        setIsLoading(false);
-        if (!response.success) {
-            toast.error(response.message);
-            return;
-        }
-        onChange({
-            ...request,
-            ...data
-        });
-        setOpenModal(false);
     }
 
-    const isBeneficiary = user?.type === UserTypeEnum.BENEFICIARY
+
+    const handleOpenProfile = (userName: string) => {
+        if (user?.username === userName) {
+            navigate('/app/profile');
+            return;
+        }
+        navigate(`/app/user/${userName}`);
+    }
+
+    const handleView = () => {
+        navigate(`/app/requests/${request.id}`);
+    }
+
+    const isBeneficiary = user?.type === UserTypeEnum.BENEFICIARY;
 
     return (
         <article className="request-item">
-            <header className="request-item__owner">
-                <img src={request.beneficiary_profile_img} alt="Beneficiary" width="32" height="32" className="request-item__owner-avatar" />
-                <span>{request.beneficiary_name}</span>
+            <header className="request-item__header">
+                <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary!.username)}>
+                    <Avatar user={request.beneficiary} />
+                    <span>{request.beneficiary.username}</span>
+                </div>
+                <EyeIcon onClick={handleView} className="request-item__view" />
             </header>
-            {request.title && <h3>{request.title}</h3>}
+            {request.title && <h3 className="request-item__title">
+                {request.title}
+            </h3>}
             {request.description && <p className="request-item__description">{request.description}</p>}
-            <ul className="request-item__details">
-                <li><b>Location</b>: {request.location}</li>
-                <li><b>Urgency</b>: {request.urgency.toUpperCase()}</li>
-                <li><b>Status</b>: {request.status.toUpperCase()}</li>
-            </ul>
+
             <footer className="request-item__actions grid">
-                {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={() => setOpenModal(true)}>Edit</button>
-                )}
+                <StatusBadge status={request.status} className="request-item__status" /> 
                 {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={handleAccept}>Accept</button>
+                    <button onClick={() => setConfirmAccept(true)}>Accept</button>
                 )}
                 {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button onClick={() => setConfirmCancel(true)}>Cancel</button>
                 )}
                 {!isBeneficiary && request.status === RequestStatusEnum.IN_PROGRESS && (
-                    <button onClick={handleComplete}>Complete</button>
+                    <button onClick={() => setConfirmReject(true)} className="outline">Reject</button>
                 )}
-                {!isBeneficiary && request.status === RequestStatusEnum.IN_PROGRESS && (
-                    <button onClick={handleReject} className="outline">Reject</button>
-                )}
-                {request.status === RequestStatusEnum.DONE && (
-                    <button onClick={handleReview}>Review</button>
-                )}
-
-
-
-
             </footer>
-            {openModal && <RequestFormModal onClose={() => setOpenModal(false)} onSubmit={handleSave} open request={request} />}
+            {confirmAccept && <ConfirmModal message="Are you sure?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}
+            {confirmReject && <ConfirmModal message="Are you sure?" onClose={() => setConfirmReject(false)} onConfirm={handleReject} open />}
+            {confirmCancel && <ConfirmModal message="Are you sure?" onClose={() => setConfirmCancel(false)} onConfirm={handleCancel} open />}
         </article>
     );
 };

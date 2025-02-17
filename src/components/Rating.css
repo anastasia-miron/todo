@@ -1,0 +1,23 @@
+.rating-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+}
+
+.rating-input__star {
+    cursor: pointer;
+}
+
+.rating-input__star--on {
+    color: var(--pico-primary);
+}
+.rating-input__star--off {
+    
+}
+
+.review-modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

@@ -40,7 +40,17 @@ export const volunteerPageSchema = Yup.object().shape({
 
 export const requestSchema = Yup.object().shape({
     title: Yup.string(),
-    description: Yup.string(),
+    description: Yup.string().min(10, 'Description is too short'),
     location: Yup.string(),
     urgency: Yup.string().oneOf([RequestUrgencyEnum.LOW, RequestUrgencyEnum.MEDIUM, RequestUrgencyEnum.HIGH])
 })
+
+export const reviewSchema = Yup.object().shape({
+    requestId: Yup.string().required("Request ID is required"),
+    rating: Yup.number()
+        .required("Rating is required")
+        .min(1, "Rating must be at least 1")
+        .max(5, "Rating cannot be more than 5"),
+    comment: Yup.string()
+        .max(500, "Comment is too long")
+});

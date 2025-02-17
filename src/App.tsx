@@ -14,8 +14,7 @@ import RequestListPage from "./pages/RequestListPage.tsx";
 import ProfilePage from "./pages/ProfilePage";
 import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
-import BeneficiaryPage from "./pages/BeneficiaryPage";
-import VolunteerPage from "./pages/VolunteerPage";
+import UserPage from "./pages/UsersPage.tsx";
 
 export default function Profile() {
   return (
@@ -31,10 +30,9 @@ export default function Profile() {
         <Route path="/app/settings" element={<SettingsPage />} />
         <Route path="/app/" element={<RequestListPage />} />
         <Route path="/app/requests/:id" element={<RequestPage />} />
-        <Route path="/app/review/:id" element={<ReviewPage />} />
-        <Route path="/app/review" element={<ReviewListPage />} />
-        <Route path="/app/beneficiary/:id" element={<BeneficiaryPage />} />
-        <Route path="/app/volunteer/:id" element={<VolunteerPage />} />
+        <Route path="/app/reviews/:id" element={<ReviewPage />} />
+        <Route path="/app/reviews" element={<ReviewListPage />} />
+        <Route path="/app/user/:username" element={<UserPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />

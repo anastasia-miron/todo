@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useNavigation } from "react-router";
+import { useLocation, useNavigate, useNavigation, Link } from "react-router";
 import { user } from "../mock";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
@@ -18,14 +18,15 @@ const NavBar: React.FC = () => {
 
     return (
         <div className="navbar">
-            {location.pathname !== "/app/" ? <ChevronLeft /> : <div className="navbar__placeholder" />}
+            {location.pathname !== "/app/" ? <ChevronLeft onClick={() => navigate(-1)} /> : <div className="navbar__placeholder" />}
             <Logo onClick={() => { navigate('/app/') }} />
             {user && <details className="dropdown navbar__menu">
                 <summary role="menu"><Avatar user={user} className="navbar__avatar" /></summary>
                 <ul dir="rtl">
-                <li><a onClick={() => navigate('/app/profile')}>Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Security</a></li>
+                    <li><Link to="/app/profile">Profile</Link></li>
+                    <li><Link to="/app/settings">Settings</Link></li>
+                    <li><Link to="/app/history">History</Link></li>
+                    <li><Link to="/app/reviews">Reviews</Link></li>
                     <li><a onClick={handleLogout}>Logout</a></li>
                 </ul>
             </details>

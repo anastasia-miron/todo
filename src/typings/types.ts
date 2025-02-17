@@ -25,3 +25,9 @@ export interface RequestPayload {
     location: string;
     urgency: RequestUrgencyEnum;
 }
+
+export interface ReviewPayload {
+    request_id: string;
+    rating: number;
+    comment: string;
+}

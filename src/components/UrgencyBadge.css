@@ -1,0 +1,27 @@
+.urgency-badge {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.urgency-low {
+    background-color: var(--pico-primary-background, #e0f7fa);
+    color: var(--pico-primary-inverse, #00796b);
+    border: 1px solid var(--pico-primary-inverse, #00796b);
+}
+
+.urgency-medium {
+    background-color: var(--pico-warning-background, #fff3cd);
+    color: var(--pico-warning-inverse, #856404);
+    border: 1px solid var(--pico-warning-inverse, #856404);
+}
+
+.urgency-high {
+    background-color: var(--pico-danger-background, #f8d7da);
+    color: var(--pico-danger-inverse, #721c24);
+    border: 1px solid var(--pico-danger-inverse, #721c24);
+}

@@ -1,0 +1,13 @@
+.review-modal {
+    width: min(80vw, 300px);
+}
+
+.review-modal__actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-modal__actions [type=submit]{
+    width: auto;
+    margin-bottom: 0;
+ }

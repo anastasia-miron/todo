@@ -7,6 +7,7 @@ import { RequestPayload } from "../typings/types";
 import useAbortSignal from "../hooks/useAbortSignal";
 import useCurrentUser from "../hooks/useCurrentUser";
 import useRefreshTrigger from "../hooks/useRefreshTrigger";
+import { toast } from "react-toastify";
 
 const RequestListPage: React.FC = () => {
     const { user} = useCurrentUser()
@@ -34,7 +35,10 @@ const RequestListPage: React.FC = () => {
         const response = await apiService.post('/requests', data, { signal });
         if (signal.aborted) return;
         if (!response.success) {
+            toast.error(response.message);
+            return;
         }
+        setOpenModal(false);
         mutate();
     }
 
@@ -43,7 +47,20 @@ const RequestListPage: React.FC = () => {
             return prev.map(item => item.id === request.id ? request : item);
         });
         mutate();
-    }
+        
+    };
+    const filteredList = list.filter(request => {
+        if (user?.type === UserTypeEnum.BENEFICIARY) {
+            return request.beneficiary.id === user.id;  
+        }
+    
+        if (user?.type === UserTypeEnum.VOLUNTEER) {
+            if (tab === "list") return !request.volunteer;  
+            if (tab === "my") return request.volunteer?.id === user.id;
+        }
+    
+        return false;
+    });
 
     return (
         <div>
@@ -51,8 +68,8 @@ const RequestListPage: React.FC = () => {
             {user?.type === UserTypeEnum.VOLUNTEER ? <><button
                     onClick={() => setTab('list')}
                     aria-current={tab === 'list'}
-                >
-                    Requests
+                > 
+                Requests
                 </button>
                 <button
                     onClick={() => setTab('my')}
@@ -62,7 +79,7 @@ const RequestListPage: React.FC = () => {
                 </button></> : 
                 <h2>My Requests</h2>}
             </header>
-            <RequestList data={list} isLoading={isLoading} onChange={handleChanges} />
+            <RequestList data={filteredList} isLoading={isLoading} onChange={handleChanges} />
             {user!.type === UserTypeEnum.BENEFICIARY && <footer><button onClick={() => setOpenModal(true)}>Add Request</button></footer>}
             {openModal && <RequestFormModal onClose={() => setOpenModal(false)} onSubmit={handleSave} open />}
         </div>
