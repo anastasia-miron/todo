@@ -9,12 +9,14 @@ import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import UserTypePage from "./pages/UserTypePage";
 import SettingsPage from "./pages/SettingsPage.tsx";
+import HistoryPage from "./pages/HistoryPage.tsx";
 import ReviewListPage from "./pages/ReviewListPage.tsx";
 import RequestListPage from "./pages/RequestListPage.tsx";
 import ProfilePage from "./pages/ProfilePage";
 import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
 import UserPage from "./pages/UsersPage.tsx";
+
 
 export default function Profile() {
   return (
@@ -28,6 +30,7 @@ export default function Profile() {
         <Route path="/app/user-type" element={<UserTypePage />} />
         <Route path="/app/profile" element={<ProfilePage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
+        <Route path="/app/history" element={<HistoryPage />} />
         <Route path="/app/" element={<RequestListPage />} />
         <Route path="/app/requests/:id" element={<RequestPage />} />
         <Route path="/app/reviews/:id" element={<ReviewPage />} />

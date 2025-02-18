@@ -7,10 +7,10 @@ import { ReviewPayload } from "../typings/types";
 
 
 interface Props {
-    value: ReviewPayload
+    value: ReviewPayload;
     open: boolean;
-    onClose: () => void;
-    onSkip: () => void;
+    onClose: () => unknown;
+    onSkip?: () => unknown;
     onSubmit: (data: ReviewPayload) => unknown;
 }
 const ReviewModal: React.FC<Props> = (props) => {
@@ -55,7 +55,7 @@ const ReviewModal: React.FC<Props> = (props) => {
                     </div>
 
                     <footer className="review-modal__actions">
-                        <button onClick={onSkip} className="outline">Skip</button>
+                        {onSkip && <button onClick={onSkip} className="outline">Skip</button>}
                         <button type="submit" disabled={!isValid || !dirty} aria-busy={isSubmitting}>
                             Done
                         </button>

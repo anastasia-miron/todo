@@ -1,0 +1,7 @@
+.request-list__actions {
+    position: sticky;
+    bottom: 0;
+    padding: 16px 0px;
+    display: flex;
+    flex-direction: column;
+}

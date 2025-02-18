@@ -27,7 +27,6 @@ export interface RequestPayload {
 }
 
 export interface ReviewPayload {
-    request_id: string;
     rating: number;
     comment: string;
 }

@@ -40,7 +40,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
     return (
         <dialog open={open}>
             <form onSubmit={handleSubmit}>
-                <article >
+                <article className="request-modal__card">
                     <header className="request-modal__header">
                         <button type="button" className="request-modal__close" onClick={onClose}>
                             <X size={20} />

@@ -13,7 +13,10 @@ import UrgencyBadge from "../components/UrgencyBadge";
 import StatusBadge from "../components/StatusBadge";
 import ReviewModal from "../components/ReviewModal";
 
-
+const DEFAULT_REVIEW: ReviewPayload = { 
+    rating: 0,
+    comment: ''
+}
 
 const RequestPage: React.FC = () => {
     const { id } = useParams();
@@ -23,12 +26,11 @@ const RequestPage: React.FC = () => {
     const navigate = useNavigate();
     const { user } = useCurrentUser();
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [openReview, setOpenReview] = useState<boolean>(false);
     const [confirmAccept, setConfirmAccept] = useState<boolean>(false);
     const [confirmReject, setConfirmReject] = useState<boolean>(false);
     const [confirmCancel, setConfirmCancel] = useState<boolean>(false);
     const [confirmComplete, setConfirmComplete] = useState<boolean>(false);
-
-    
 
     useLayoutEffect(() => {
         (async () => {
@@ -50,11 +52,7 @@ const RequestPage: React.FC = () => {
         return (<article>Server Error</article>)
     }
 
-    const DEFAULT_REVIEW: ReviewPayload = { 
-        request_id: request.id,
-        rating: 0,
-        comment: ''
-    }
+  
 
     const handleAccept = async () => {
         setIsLoading(true);
@@ -73,9 +71,9 @@ const RequestPage: React.FC = () => {
     }
 
 
-    const handleComplete = async () => {
+    const handleComplete = async (data: ReviewPayload) => {
         setIsLoading(true);
-        const response = await apiService.post(`/requests/${request.id}/complete`, {}, { signal });
+        const response = await apiService.post(`/requests/${request.id}/complete`, data, { signal });
         if (signal.aborted) return;
         setIsLoading(false);
         if (!response.success) {
@@ -87,10 +85,18 @@ const RequestPage: React.FC = () => {
             ...request,
             status: RequestStatusEnum.DONE
         });
+        setConfirmComplete(false);
     };
 
     const handleSkipReview = async() => {
-        
+        setIsLoading(true);
+        const response = await apiService.post(`/requests/${request.id}/complete`, {}, { signal });
+        if (signal.aborted) return;
+        setIsLoading(false);
+        if (!response.success) {
+            toast.error(response.message);
+            return
+        }
     }
 
     const handleReject = async () => {
@@ -124,8 +130,16 @@ const RequestPage: React.FC = () => {
         });
     }
 
-    const handleReview = async () => {
-        // Show review Modal
+    const handleReview = async (data: ReviewPayload) => {
+        setIsLoading(true);
+        const response = await apiService.post(`/requests/${request.id}/review`, data, { signal });
+        if (signal.aborted) return;
+        setIsLoading(false);
+        if (!response.success) {
+            toast.error(response.message);
+            return;
+        }
+        setOpenReview(false);
     }
 
     const handleSave = async (data: RequestPayload) => {
@@ -193,14 +207,16 @@ const RequestPage: React.FC = () => {
                         <button onClick={() => setConfirmReject(true)} className="outline">Reject</button>
                     )}
                     {request.status === RequestStatusEnum.DONE && (
-                        <button onClick={handleReview}>Review</button>
+                        <button onClick={() => setOpenReview(true)}>Review</button>
                     )}
                 </footer>
                 {openModal && <RequestFormModal onClose={() => setOpenModal(false)} onSubmit={handleSave} open request={request} />}
+                {openReview && <ReviewModal open value={DEFAULT_REVIEW} onClose={() => setOpenReview(false)} onSubmit={handleReview} />}
                 {confirmAccept && <ConfirmModal message="Are you sure?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}
                 {confirmReject && <ConfirmModal message="Are you sure?" onClose={() => setConfirmReject(false)} onConfirm={handleReject} open />}
                 {confirmCancel && <ConfirmModal message="Are you sure?" onClose={() => setConfirmCancel(false)} onConfirm={handleCancel} open />}
                 {confirmComplete && <ReviewModal open value={DEFAULT_REVIEW} onClose={() => setConfirmComplete(false)} onSkip={handleSkipReview} onSubmit={handleComplete} />}
+                
 
             </article>
         </div>

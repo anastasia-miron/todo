@@ -4,8 +4,6 @@ import './RequestItem.css';
 import apiService from "../services/api.service";
 import useAbortSignal from "../hooks/useAbortSignal";
 import { toast } from "react-toastify";
-import RequestFormModal from "./RequestFormModal";
-import { RequestPayload } from "../typings/types";
 import useCurrentUser from "../hooks/useCurrentUser";
 import Avatar from "./Avatar";
 import { useNavigate } from "react-router";
@@ -26,7 +24,6 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
     const { user } = useCurrentUser();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [openModal, setOpenModal] = useState<boolean>(false);
     const [confirmAccept, setConfirmAccept] = useState<boolean>(false);
     const [confirmReject, setConfirmReject] = useState<boolean>(false);
     const [confirmCancel, setConfirmCancel] = useState<boolean>(false);

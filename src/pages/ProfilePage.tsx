@@ -8,9 +8,10 @@ import EditVolunteerProfile from "../components/EditVolunteerProfile";
 import EditBeneficiaryProfile from "../components/EditBeneficiaryProfile";
 import useAbortSignal from "../hooks/useAbortSignal";
 import { toast } from "react-toastify";
+import Rating from "../components/Rating";
 
 const Profile: React.FC = () => {
-    const {user, updateUser} = useCurrentUser();
+    const { user, updateUser } = useCurrentUser();
     const [profile, setProfile] = useState<ProfileModel | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -37,7 +38,7 @@ const Profile: React.FC = () => {
             return toast.error(response.message);
         }
         setProfile(data);
-        updateUser(response.data); 
+        updateUser(response.data);
         setOpenModal(false);
     };
 
@@ -63,30 +64,32 @@ const Profile: React.FC = () => {
                 </div>
             </header>
             <section className="profile__details">
-                    {profile.phone && <>
-                        <div className="profile__label">Phone</div>
-                        <div><a href={`tel:${profile.phone}`}>{profile.phone}</a></div>
-                    </>}
-                    {profile.email && <>
-                        <div className="profile__label">Email</div>
-                        <div><a href={`mailto:${profile.email}`}>{profile.email}</a></div>
-                    </>}
-                    {profile.needs && <>
-                        <div className="profile__label">Needs</div>
-                        <div>{profile.needs}</div>
-                    </>}
-                    {profile.location && <>
-                        <div className="profile__label">Location</div>
-                        <div>{profile.location}</div>
-                    </>}
-                    {profile.availability && <>
-                        <div className="profile__label">Availability</div>
-                        <div>{profile.availability}</div>
-                    </>}
-                    {profile.skills && <>
-                        <div className="profile__label">Skills</div>
-                        <div>{profile.skills}</div>
-                    </>}
+                <div className="profile__label">Rating</div>
+                <Rating value={profile.rating} readOnly />
+                {profile.phone && <>
+                    <div className="profile__label">Phone</div>
+                    <div><a href={`tel:${profile.phone}`}>{profile.phone}</a></div>
+                </>}
+                {profile.email && <>
+                    <div className="profile__label">Email</div>
+                    <div><a href={`mailto:${profile.email}`}>{profile.email}</a></div>
+                </>}
+                {profile.needs && <>
+                    <div className="profile__label">Needs</div>
+                    <div>{profile.needs}</div>
+                </>}
+                {profile.location && <>
+                    <div className="profile__label">Location</div>
+                    <div>{profile.location}</div>
+                </>}
+                {profile.availability && <>
+                    <div className="profile__label">Availability</div>
+                    <div>{profile.availability}</div>
+                </>}
+                {profile.skills && <>
+                    <div className="profile__label">Skills</div>
+                    <div>{profile.skills}</div>
+                </>}
             </section>
             <footer>
                 <button onClick={() => setOpenModal(true)}>Edit</button>

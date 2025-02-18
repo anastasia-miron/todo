@@ -8,6 +8,7 @@ import useAbortSignal from "../hooks/useAbortSignal";
 import useCurrentUser from "../hooks/useCurrentUser";
 import useRefreshTrigger from "../hooks/useRefreshTrigger";
 import { toast } from "react-toastify";
+import './RequestListPage.css';
 
 const RequestListPage: React.FC = () => {
     const { user} = useCurrentUser()
@@ -47,8 +48,8 @@ const RequestListPage: React.FC = () => {
             return prev.map(item => item.id === request.id ? request : item);
         });
         mutate();
-        
     };
+
     const filteredList = list.filter(request => {
         if (user?.type === UserTypeEnum.BENEFICIARY) {
             return request.beneficiary.id === user.id;  
@@ -80,7 +81,9 @@ const RequestListPage: React.FC = () => {
                 <h2>My Requests</h2>}
             </header>
             <RequestList data={filteredList} isLoading={isLoading} onChange={handleChanges} />
-            {user!.type === UserTypeEnum.BENEFICIARY && <footer><button onClick={() => setOpenModal(true)}>Add Request</button></footer>}
+            {user!.type === UserTypeEnum.BENEFICIARY && <footer className="request-list__actions">
+                <button onClick={() => setOpenModal(true)}>Add Request</button>
+            </footer>}
             {openModal && <RequestFormModal onClose={() => setOpenModal(false)} onSubmit={handleSave} open />}
         </div>
     );

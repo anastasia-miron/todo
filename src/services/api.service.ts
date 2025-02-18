@@ -10,6 +10,14 @@ class ApiService {
                 ...init,
                 ...this.getRequestOptions()
             });
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = '/sign-in';
+                return {
+                    success: false,
+                    message: 'Unauthorized'
+                };
+            }
             const result: ApiResponse<Response> = await response.json();
             return result;
         } catch (error) {

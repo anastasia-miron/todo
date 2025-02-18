@@ -1,3 +1,7 @@
+.request-modal__card {
+    width: auto;
+}
+
 .request-modal__header {
     position: relative;
 }

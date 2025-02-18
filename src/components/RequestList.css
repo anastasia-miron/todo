@@ -1,3 +1,14 @@
 .request-list {
 
 }
+
+.requests-list__no-results {
+    margin-top: 16px;
+    max-width: 90%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: calc(100dvh - 148px);
+    justify-content: center;
+}
