@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
     return (
         <div className="navbar">
             {location.pathname !== "/app/" ? <ChevronLeft onClick={() => navigate(-1)} /> : <div className="navbar__placeholder" />}
-            <Logo onClick={() => { navigate('/app/') }} />
+            <Logo onClick={() => { navigate('/app/') }} className="navbar__logo" />
             {user && <details ref={menuRef} className="dropdown navbar__menu">
                 <summary role="menu">
                     <Avatar user={user} className="navbar__avatar" />
