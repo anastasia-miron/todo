@@ -29,6 +29,7 @@ export interface ProfileModel {
     availability: string | null;
     skills: string | null;
     rating: number;
+    reviews: ReviewModel[]
 }
 
 export interface RequestModel {

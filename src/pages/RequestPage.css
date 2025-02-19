@@ -1,0 +1,70 @@
+.request-page__header {
+    display: flex;
+    align-items: center;
+}
+
+.request-page__description {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.request-page__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.request-page__actions time {
+    margin-right: auto;
+    font-size: 12px;
+}
+
+.request-page__actions button {
+    padding: 4px 8px;
+}
+
+.request-page__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 0px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.request-page__details li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin: 0;
+    gap: 8px;
+}
+
+.request-page__header {
+    display: flex;
+    align-items: center;
+}
+
+.request-page__owner {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.request-page__volunteer {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.request-page__actions button {
+    padding: 4px 8px;
+}

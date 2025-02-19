@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import UrgencyBadge from "../components/UrgencyBadge";
 import StatusBadge from "../components/StatusBadge";
 import ReviewModal from "../components/ReviewModal";
+import './RequestPage.css'
 
 const DEFAULT_REVIEW: ReviewPayload = { 
     rating: 0,
@@ -97,6 +98,7 @@ const RequestPage: React.FC = () => {
             toast.error(response.message);
             return
         }
+        setConfirmComplete(false);
     }
 
     const handleReject = async () => {
@@ -168,29 +170,30 @@ const RequestPage: React.FC = () => {
     return (
         <div>
             <header>
-                <h2>{request.title}</h2>
+                <h2 >{request.title}</h2>
             </header>
-            <article className="request-item">
-                <header className="request-item__header">
-                    <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary!.username)}>
+            <article className="request-page">
+                <header className="request-page__header">
+                    <div className="request-page__owner" onClick={() => handleOpenProfile(request.beneficiary!.username)}>
                         <Avatar user={request.beneficiary} />
                         <span>{request.beneficiary.username}</span>
                     </div>
                 </header>
-                {request.description && <p className="request-item__description">{request.description}</p>}
-                <ul className="request-item__details">
+                {request.description && <blockquote className="request-page__description">{request.description}</blockquote>}
+                <ul className="request-page__details">
                     <li><b>Location:</b> {request.location}</li>
                     <li><b>Urgency:</b> <UrgencyBadge urgency={request.urgency} /></li>
                     <li><b>Status:</b> <StatusBadge status={request.status} /></li>
                     {request.volunteer && <li>
                         <b>Volunteer:</b>
-                        <div className="request-item__volunteer" onClick={() => handleOpenProfile(request.volunteer!.username)}>
+                        <div className="request-page__volunteer" onClick={() => handleOpenProfile(request.volunteer!.username)}>
                             <Avatar user={request.volunteer} />
                             <span>{request.volunteer.username}</span>
                         </div>
                     </li>}
                 </ul>
-                <footer className="request-item__actions grid">
+                <footer className="request-page__actions">
+                    <time>{new Date(request.created_at).toLocaleString()}</time>
                     {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
                         <button onClick={() => setOpenModal(true)}>Edit</button>
                     )}
@@ -198,13 +201,13 @@ const RequestPage: React.FC = () => {
                         <button onClick={() => setConfirmAccept(true)}>Accept</button>
                     )}
                     {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                        <button onClick={() => setConfirmCancel(true)}>Cancel</button>
+                        <button onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
                     )}
                     {!isBeneficiary && request.status === RequestStatusEnum.IN_PROGRESS && (
                         <button onClick={() => setConfirmComplete(true)}>Complete</button>
                     )}
-                    {!isBeneficiary && request.status === RequestStatusEnum.IN_PROGRESS && (
-                        <button onClick={() => setConfirmReject(true)} className="outline">Reject</button>
+                    {request.status === RequestStatusEnum.IN_PROGRESS && (
+                        <button onClick={() => setConfirmReject(true)} className="outline danger-btn">Reject</button>
                     )}
                     {request.status === RequestStatusEnum.DONE && (
                         <button onClick={() => setOpenReview(true)}>Review</button>

@@ -15,8 +15,21 @@ body {
   min-height: 100vh;
 }
 
+time {
+  font-size: 12px;
+  color: var(--pico-muted-color);
+}
+
 .page {
   width: 100%;
+}
+
+blockquote {
+  padding: 0 var(--pico-spacing);
+}
+
+a {
+  text-decoration: none;
 }
 
 .page__header {
@@ -58,4 +71,26 @@ h2 {
 h3 {
   --pico-font-size: 1.2rem;
   text-align: center;
+}
+
+.Toastify__close-button {
+  margin-bottom: 0;
+  margin-right: 4px;
+  padding: 0;
+  background: none;
+  box-shadow: 0;
+  border: 0;
+}
+
+[role=button], [type=button], [type=file]::file-selector-button, [type=reset], [type=submit], button {
+  padding: 4px 8px;
+}
+
+:is(button.danger-btn.outline) {
+  --pico-color: #DC3545;
+  --pico-border-color: #DC3545;
+}
+:is(button.danger-btn.outline):hover {
+  --pico-color: #C82333!important;
+  --pico-border-color: #C82333!important;
 }

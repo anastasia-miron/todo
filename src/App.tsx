@@ -15,7 +15,7 @@ import RequestListPage from "./pages/RequestListPage.tsx";
 import ProfilePage from "./pages/ProfilePage";
 import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
-import UserPage from "./pages/UsersPage.tsx";
+import UserPage from "./pages/UserPage.tsx";
 
 
 export default function Profile() {

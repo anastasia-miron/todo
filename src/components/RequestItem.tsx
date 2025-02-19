@@ -96,27 +96,44 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
     return (
         <article className="request-item">
             <header className="request-item__header">
-                <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary!.username)}>
-                    <Avatar user={request.beneficiary} />
-                    <span>{request.beneficiary.username}</span>
-                </div>
+                <h3 className="request-item__title">
+                    {request.title}
+                </h3>
                 <EyeIcon onClick={handleView} className="request-item__view" />
             </header>
-            {request.title && <h3 className="request-item__title">
-                {request.title}
-            </h3>}
-            {request.description && <p className="request-item__description">{request.description}</p>}
+            {request.description && <blockquote className="request-item__description">{request.description}</blockquote>}
+            <div className="request-item__actors">
+                <div className="request-item__actor">
+                    <strong>Beneficiary:</strong>
+                    <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary.username)}>
+                        <Avatar user={request.beneficiary} />
+                        <span>{request.beneficiary.username}</span>
+                    </div>
+                </div>
+
+                {request.volunteer && <div className="request-item__actor">
+                    <strong>Volunteer:</strong>
+                    <div className="request-item__volunteer" onClick={() => handleOpenProfile(request.volunteer!.username)}>
+                        <Avatar user={request.volunteer} />
+                        <span>{request.volunteer.username}</span>
+                    </div>
+                </div>}
+            </div>
+
+
+
 
             <footer className="request-item__actions grid">
-                <StatusBadge status={request.status} className="request-item__status" /> 
+                
+                <StatusBadge status={request.status} className="request-item__status" />
                 {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
                     <button onClick={() => setConfirmAccept(true)}>Accept</button>
                 )}
                 {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={() => setConfirmCancel(true)}>Cancel</button>
+                    <button onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
                 )}
-                {!isBeneficiary && request.status === RequestStatusEnum.IN_PROGRESS && (
-                    <button onClick={() => setConfirmReject(true)} className="outline">Reject</button>
+                {request.status === RequestStatusEnum.IN_PROGRESS && (
+                    <button onClick={() => setConfirmReject(true)} className="outline danger-btn">Reject</button>
                 )}
             </footer>
             {confirmAccept && <ConfirmModal message="Are you sure?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}

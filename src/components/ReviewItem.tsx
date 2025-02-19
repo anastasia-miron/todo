@@ -9,6 +9,8 @@ import ConfirmModal from "./ConfirmModal";
 import "./ReviewItem.css";
 import ReviewModal from "./ReviewModal";
 import useAbortSignal from "../hooks/useAbortSignal";
+import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 interface Props {
     review: ReviewModel;
@@ -19,17 +21,18 @@ interface Props {
 const ReviewItem: React.FC<Props> = (props) => {
     const { review, onUpdate, onDelete } = props;
     const { user } = useCurrentUser();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const signal = useAbortSignal();
     const [isEditing, setIsEditing] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
 
-    
+
     const isAuthor = user?.id === review.from.id;
 
     const handleEdit = async (updatedReview: { rating: number; comment: string }) => {
         setIsLoading(true);
-        const response = await apiService.put(`/reviews/${review.id}`, updatedReview, {signal});
+        const response = await apiService.put(`/reviews/${review.id}`, updatedReview, { signal });
         if (signal.aborted) return;
         setIsLoading(false);
         if (!response.success) {
@@ -42,7 +45,7 @@ const ReviewItem: React.FC<Props> = (props) => {
     };
     const handleDelete = async () => {
         setIsLoading(true);
-        const response = await apiService.delete(`/reviews/${review.id}`, {signal});
+        const response = await apiService.delete(`/reviews/${review.id}`, { signal });
         if (signal.aborted) return;
         setIsLoading(false);
         if (!response.success) {
@@ -54,26 +57,35 @@ const ReviewItem: React.FC<Props> = (props) => {
         toast.success("Review deleted successfully!");
     };
 
+    const handleOpenProfile = (userName: string) => {
+        if (user?.username === userName) {
+            navigate('/app/profile');
+            return;
+        }
+        navigate(`/app/user/${userName}`);
+    }
 
     return (
         <article className="review-item">
             <header className="review-item__header">
-                <div className="review-item__user">
+                <div className="review-item__user" onClick={() => handleOpenProfile(review.from.username)}>
                     <Avatar user={review.from} />
                     <span>{review.from.username}</span>
                 </div>
-                <time>{new Date(review.createdAt).toLocaleString()}</time>
+                <Rating value={review.rating} readOnly />
             </header>
 
-            <Rating value={review.rating} readOnly />
+            <Link to={`/app/requests/${review.request.id}`}>{review.request.title}</Link>
             <blockquote>{review.comment || 'No comment'}</blockquote>
 
-            {isAuthor && (
-                <footer className="review-item__actions">
+            <footer className="review-item__actions">
+                <time className="review-item__date">{new Date(review.createdAt).toLocaleString()}</time>
+                {isAuthor && (<>
+                    <button onClick={() => setConfirmDelete(true)} className="outline danger-btn">Delete</button>
                     <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={() => setConfirmDelete(true)} className="outline">Delete</button>
-                </footer>
-            )}
+                </>)}
+            </footer>
+
 
             {isEditing && (
                 <ReviewModal

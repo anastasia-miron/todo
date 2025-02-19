@@ -1,5 +1,6 @@
 .request-list {
-
+    height: calc(100dvh - 195px);
+    overflow-y: auto;
 }
 
 .requests-list__no-results {

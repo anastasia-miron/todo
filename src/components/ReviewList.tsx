@@ -1,6 +1,7 @@
 import React from "react";
 import { ReviewModel } from "../typings/models";
 import ReviewItem from "./ReviewItem";
+import './ReviewList.css';
 
 
 interface Props {

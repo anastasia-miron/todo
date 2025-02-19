@@ -51,9 +51,9 @@ const Profile: React.FC = () => {
     }
 
     return (
-        <div className="profile">
+        <article className="profile">
             <header>
-                <div className="grid">
+                <div className="profile__header">
                     <Avatar user={user!} className="profile__avatar" />
                     <div className="profile__info">
                         <div className="profile__label">Name</div>
@@ -91,7 +91,7 @@ const Profile: React.FC = () => {
                     <div>{profile.skills}</div>
                 </>}
             </section>
-            <footer>
+            <footer className="profile__actions">
                 <button onClick={() => setOpenModal(true)}>Edit</button>
             </footer>
             {profile.type === UserTypeEnum.VOLUNTEER && (
@@ -100,7 +100,7 @@ const Profile: React.FC = () => {
             {profile.type === UserTypeEnum.BENEFICIARY && (
                 <EditBeneficiaryProfile open={openModal} onClose={() => setOpenModal(false)} onSubmit={handleSave} value={profile} />
             )}
-        </div>
+        </article>
     );
 }
 
