@@ -81,8 +81,8 @@ const ReviewItem: React.FC<Props> = (props) => {
             <footer className="review-item__actions">
                 <time className="review-item__date">{new Date(review.createdAt).toLocaleString()}</time>
                 {isAuthor && (<>
-                    <button onClick={() => setConfirmDelete(true)} className="outline danger-btn">Delete</button>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmDelete(true)} className="outline danger-btn">Delete</button>
+                    <button aria-busy={isLoading} onClick={() => setIsEditing(true)}>Edit</button>
                 </>)}
             </footer>
 

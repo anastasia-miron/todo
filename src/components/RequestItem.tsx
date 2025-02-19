@@ -127,13 +127,13 @@ const RequestItem: React.FC<RequestItemProps> = (props) => {
                 
                 <StatusBadge status={request.status} className="request-item__status" />
                 {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={() => setConfirmAccept(true)}>Accept</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmAccept(true)}>Accept</button>
                 )}
                 {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
                 )}
                 {request.status === RequestStatusEnum.IN_PROGRESS && (
-                    <button onClick={() => setConfirmReject(true)} className="outline danger-btn">Reject</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmReject(true)} className="outline danger-btn">Reject</button>
                 )}
             </footer>
             {confirmAccept && <ConfirmModal message="Are you sure?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}

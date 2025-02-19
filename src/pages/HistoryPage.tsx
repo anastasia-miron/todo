@@ -3,13 +3,11 @@ import apiService from "../services/api.service";
 import RequestList from "../components/RequestList";
 import { RequestModel, RequestStatusEnum } from "../typings/models";
 import useAbortSignal from "../hooks/useAbortSignal";
-import { useNavigate } from "react-router";
 
 const HistoryPage: React.FC = () => {
     const [requests, setRequests] = useState<RequestModel[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const signal = useAbortSignal();
-    const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {

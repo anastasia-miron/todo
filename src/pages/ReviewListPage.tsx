@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import React, { useLayoutEffect, useMemo, useState } from "react";
 import apiService from "../services/api.service";
 import ReviewList from "../components/ReviewList";
 import { ReviewModel } from "../typings/models";

@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 import { RequestUrgencyEnum, UserTypeEnum } from './typings/models';
-import { user } from './mock';
-
 
 export const loginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Email is required'),
