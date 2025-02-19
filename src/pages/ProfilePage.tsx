@@ -42,11 +42,7 @@ const Profile: React.FC = () => {
         setOpenModal(false);
     };
 
-    const handleNotification = () => {
-        new Notification('Test', {
-            body: 'asjhdg askjhd asjhd gasjh '
-        })
-    }
+  
 
     if (isLoading) {
         return (<article aria-busy="true" />)
@@ -65,7 +61,7 @@ const Profile: React.FC = () => {
                         <div className="profile__label">Name</div>
                         <div>{profile.username}</div>
                         <div className="profile__label">Type</div>
-                        <div onClick={handleNotification}>{profile.type}</div>
+                        <div>{profile.type}</div>
                     </div>
                 </div>
             </header>
