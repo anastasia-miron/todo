@@ -1,13 +1,13 @@
 :root {
   font-family: 'Open Sans', sans-serif;
-  --pico-font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 100%!important;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --pico-font-family: 'Open Sans', sans-serif;
+  --pico-font-size: 100%!important;
 }
 
 body {
