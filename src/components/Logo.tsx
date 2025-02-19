@@ -4,7 +4,6 @@ const Logo: React.FC<SVGProps<SVGSVGElement>> = (props) => {
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 140" {...props}>
-
             <g transform="translate(-30, -20)">
                 <path d="M150 70
                      A 20 20 0 0 1 190 70

@@ -8,6 +8,10 @@
 .navbar__avatar {
     font-size: 20px;
 }
+.navbar__logo {
+    height: 72px;
+    width: 240px;
+}
 .navbar__placeholder {
     width: 24px;
     height: 24px;
