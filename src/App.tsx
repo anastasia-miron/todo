@@ -16,9 +16,18 @@ import ProfilePage from "./pages/ProfilePage";
 import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
 import UserPage from "./pages/UserPage.tsx";
+import { useEffect } from "react";
 
 
 export default function Profile() {
+
+  useEffect(() => {
+    
+    Notification.requestPermission().then(response => {
+      console.log(response);
+    })
+  }, [])
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
