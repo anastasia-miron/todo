@@ -6,7 +6,6 @@ import App from './App.tsx'
 import { Slide, ToastContainer } from 'react-toastify'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
     <BrowserRouter>
       <App />
       <ToastContainer 
@@ -23,5 +22,4 @@ createRoot(document.getElementById('root')!).render(
         transition={Slide}
       />
     </BrowserRouter>
-  </StrictMode>,
 )

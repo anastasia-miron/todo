@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { RequestModel, RequestStatusEnum, UserTypeEnum } from "../typings/models";
 import useAbortSignal from "../hooks/useAbortSignal";
 import { useNavigate, useParams } from "react-router";
@@ -13,6 +13,7 @@ import UrgencyBadge from "../components/UrgencyBadge";
 import StatusBadge from "../components/StatusBadge";
 import ReviewModal from "../components/ReviewModal";
 import './RequestPage.css'
+import useSSE from "../hooks/useSSE";
 
 const DEFAULT_REVIEW: ReviewPayload = { 
     rating: 0,
@@ -25,6 +26,7 @@ const RequestPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const signal = useAbortSignal();
     const navigate = useNavigate();
+    const {source} = useSSE(id!);
     const { user } = useCurrentUser();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openReview, setOpenReview] = useState<boolean>(false);
@@ -44,6 +46,16 @@ const RequestPage: React.FC = () => {
             }
         })()
     }, []);
+
+    useEffect(() => {
+        const listener = (data: unknown) => {
+            console.log(data)
+        };
+        source.addEventListener('message', listener);
+        return () => {
+            source.removeEventListener('message', listener);
+        }
+    }, [source]) 
 
     if (isLoading) {
         return (<article aria-busy="true" />)

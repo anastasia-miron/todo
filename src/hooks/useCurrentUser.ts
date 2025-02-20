@@ -2,36 +2,29 @@ import { decodeJwt } from 'jose'
 import { useEffect, useState } from 'react';
 import { UserModel } from '../typings/models';
 import { AppJwtPayload } from '../typings/types';
+import useToken from './useToken';
 
 
 const useCurrentUser = () => {
-    const token = localStorage.getItem('token');
+    const { token, updateToken } = useToken();
     const initialUser = token ? decodeJwt<AppJwtPayload>(token).user : null;
     const [user, setUser] = useState<UserModel | null>(initialUser);
 
     const updateUser = (token: string) => {
-        localStorage.setItem('token', token);
-        window.dispatchEvent(new Event('storage'));
+        updateToken(token);
         const { user } = decodeJwt<AppJwtPayload>(token);
         setUser(user);
     }
 
     const logout = () => {
-        localStorage.removeItem('token');
+        updateToken(null);
         setUser(null);
     }
 
     useEffect(() => {
-        const ctrl = new AbortController();
-        window.addEventListener('storage', () => {
-            const token = localStorage.getItem('token');
-            const user = token ? decodeJwt<AppJwtPayload>(token).user : null;
-            setUser(user);
-        }, { signal: ctrl.signal });
-        return () => {
-            ctrl.abort();
-        }
-    }, [])
+        const user = token ? decodeJwt<AppJwtPayload>(token).user : null;
+        setUser(user);
+    }, [token])
 
     return {
         user,

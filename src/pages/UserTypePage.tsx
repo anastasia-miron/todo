@@ -15,7 +15,7 @@ const DEFAULT_VALUE = {
     skills: '',
 };
 
-const AVAILABILITY_OPTIONS = ["Full-time", "Part-time", "Weekends", "Flexible", "24/24"];
+const AVAILABILITY_OPTIONS = ["Full-time", "Evenings", "Weekends", "Flexible", "24/24"];
 
 const UserTypePage: React.FC = () => {
     const navigate = useNavigate();

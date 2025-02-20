@@ -9,7 +9,7 @@ interface Props {
     onClose: () => unknown;
     onSubmit: (data: ProfileModel) => Promise<unknown>;
 }
-const AVAILABILITY_OPTIONS = ["Full-time", "Part-time", "Weekends", "Flexible", "24/24"];
+const AVAILABILITY_OPTIONS = ["Full-time", "Evenings", "Weekends", "Flexible", "24/24"];
 const EditVolunteerProfile: React.FC<Props> = (props) => {
     const { value, onClose, onSubmit, open } = props;
 
