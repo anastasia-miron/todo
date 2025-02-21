@@ -13,6 +13,8 @@ const useSSE = (requestId: string) => {
         })
     }, [token]);
 
+    source.onabort = () => console.log('Abort');
+
     return { source,  };
 }
 

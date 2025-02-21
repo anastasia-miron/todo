@@ -41,7 +41,9 @@ export interface RequestModel {
     status: RequestStatusEnum;
     created_at: string;
     beneficiary: UserModel;
+    beneficiary_id: string;
     volunteer: UserModel | null;
+    volunteer_id: string | null;
 }
 
 export interface ReviewModel {
@@ -52,6 +54,15 @@ export interface ReviewModel {
     rating: number;
     comment: string;
     createdAt: string
+}
+
+export interface MessageModel {
+    id: string;
+    request: RequestModel;
+    user: UserModel | null;
+    content: string;
+    isSystem: boolean;
+    timestamp: string;
 }
 
 export enum RequestUrgencyEnum {

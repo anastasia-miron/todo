@@ -30,3 +30,8 @@ export interface ReviewPayload {
     rating: number;
     comment: string;
 }
+
+export interface ServerSideEvent extends CustomEvent {
+    data: string;
+    type: string;
+}

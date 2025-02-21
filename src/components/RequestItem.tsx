@@ -13,12 +13,12 @@ import StatusBadge from "./StatusBadge";
 
 
 
-interface RequestItemProps {
+interface Props {
     request: RequestModel;
     onChange: (data: RequestModel) => unknown;
 }
 
-const RequestItem: React.FC<RequestItemProps> = (props) => {
+const RequestItem: React.FC<Props> = (props) => {
     const { request, onChange } = props;
     const signal = useAbortSignal();
     const { user } = useCurrentUser();

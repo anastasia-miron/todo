@@ -1,0 +1,59 @@
+.message-item {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 16px;
+    gap: 8px;
+}
+
+.message-item--left {
+    justify-content: flex-start;
+}
+
+.message-item--right {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+.message-box {
+    padding: 4px 8px;
+    max-width: 60%;
+    border-radius: 4px;
+    border: 1px solid var(--pico-secondary-underline);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.message-item--left  .message-box {
+    color: var(--pico-contrast);
+}
+.message-item--right .message-box {
+    text-align: right;
+    align-self: flex-end;
+}
+
+.message-time {
+    display: block;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0.7;
+    margin-top: 4px;
+    text-align: right;
+}
+
+.message-item--right .message-content {
+    text-align: right;
+    word-wrap: break-word; 
+}
+
+.message-avatar {
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
