@@ -20,5 +20,8 @@
     "dir": "left",
     "lang": "en-GB",
     "name": "Help Me",
-    "short_name": "Help Me"
+    "short_name": "Help Me",
+    "start_url": "https://help-me-nu.vercel.app/",
+    "scope": "https://help-me-nu.vercel.app/",
+    "id": "https://help-me-nu.vercel.app/"
 }
