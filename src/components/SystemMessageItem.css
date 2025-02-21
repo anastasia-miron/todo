@@ -1,0 +1,10 @@
+.message-system {
+    color: var(--pico-muted-color);
+    display: flex;
+    gap: 0.4em;
+    margin: 0.5em auto 1em;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    text-align: center;
+}
