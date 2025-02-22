@@ -4,3 +4,13 @@
     width: 100%;
     
 }
+.forgot-password {
+cursor: pointer;
+text-decoration: underline;
+font-size: 13px;
+text-align: right;
+margin: 0;
+}
+.forgot-password:hover{
+    color: var(--pico-muted-color);
+}

@@ -22,6 +22,8 @@ export const userTypeSchema = Yup.object().shape({
 });
 
 
+
+
 export const beneficiaryPageSchema = Yup.object().shape({
     needs: Yup.string().required("Needs field is required"),
     location: Yup.string().required("Location field is required"),
@@ -52,3 +54,9 @@ export const reviewSchema = Yup.object().shape({
     comment: Yup.string()
         .max(500, "Comment is too long")
 });
+
+export const recoverySchema = Yup.object({
+    email: Yup.string()
+        .email("Invalid email format")
+        .required("Email is required")
+        })

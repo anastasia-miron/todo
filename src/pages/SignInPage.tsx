@@ -8,6 +8,7 @@ import apiService from "../services/api.service";
 import { toast } from 'react-toastify';
 import useAbortSignal from "../hooks/useAbortSignal";
 import useCurrentUser from "../hooks/useCurrentUser";
+import "./SignInPage.css"
 
 const DEFAULT_VALUES = {
     email: '',
@@ -66,7 +67,9 @@ const SignInPage: React.FC = () => {
                             value={values.password}
                             onChange={(ev) => setFieldValue('password', ev.target.value)}
                         />
-
+                    <p className="forgot-password" onClick={() => navigate('/password-recovery')}>
+                            Forgot your password?
+                        </p>
                     </fieldset>
                 </div>
                 <div className="signin_page__actions">
