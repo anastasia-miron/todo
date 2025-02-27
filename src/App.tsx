@@ -6,7 +6,7 @@ import AppLayout from "./components/AppLayout";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
-import ChangePasswordPage from "./pages/ChangePasswordPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage.tsx";
 import UserTypePage from "./pages/UserTypePage";
 import SettingsPage from "./pages/SettingsPage.tsx";
 import HistoryPage from "./pages/HistoryPage.tsx";
@@ -16,7 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
 import UserPage from "./pages/UserPage.tsx";
-
+import SuccessfullyChangedPage from "./pages/SuccessfullyChangedPage.tsx";
 
 
 export default function Profile() {
@@ -27,8 +27,9 @@ export default function Profile() {
       <Route path="/sign-in" element={<SignInPage />} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
-      <Route path="/password-change" element={<ChangePasswordPage />} />
-      <Route path="/app" element={<AppLayout />} >
+      <Route path="/change-password" element={<ChangePasswordPage />} />
+      <Route path="/successfully-changed" element={<SuccessfullyChangedPage />} />
+ <Route path="/app" element={<AppLayout />} >
         <Route path="/app/user-type" element={<UserTypePage />} />
         <Route path="/app/profile" element={<ProfilePage />} />
         <Route path="/app/settings" element={<SettingsPage />} />

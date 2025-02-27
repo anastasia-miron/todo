@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../components/Logo";
-import { Navigate, useNavigate } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas";
@@ -67,9 +67,9 @@ const SignInPage: React.FC = () => {
                             value={values.password}
                             onChange={(ev) => setFieldValue('password', ev.target.value)}
                         />
-                    <p className="forgot-password" onClick={() => navigate('/password-recovery')}>
+                    <Link className="forgot-password" to="/password-recovery">
                             Forgot your password?
-                        </p>
+                        </Link>
                     </fieldset>
                 </div>
                 <div className="signin_page__actions">

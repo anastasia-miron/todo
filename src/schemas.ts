@@ -60,3 +60,11 @@ export const recoverySchema = Yup.object({
         .email("Invalid email format")
         .required("Email is required")
         })
+
+
+export const changePasswordSchema = Yup.object({
+    password: Yup.string().required("Password is required"),
+    repeatPassword: Yup.string()
+        .oneOf([Yup.ref('password')], 'Passwords must match!')
+        .required('Repeat password is required'),
+})
