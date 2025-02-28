@@ -13,7 +13,7 @@ const AVAILABILITY_OPTIONS = ["Full-time", "Evenings", "Weekends", "Flexible", "
 const EditVolunteerProfile: React.FC<Props> = (props) => {
     const { value, onClose, onSubmit, open } = props;
 
-    const { values, handleChange, handleSubmit, dirty, isValid, isSubmitting } = useFormik({
+    const { values, handleChange, handleSubmit, dirty, isValid, isSubmitting, errors } = useFormik({
         initialValues: value,
         validationSchema: volunteerPageSchema,
         onSubmit,
@@ -32,6 +32,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
                         type="url"
                         name="profileImg"
                         placeholder="http://imgur.com/"
+                        aria-invalid={errors.profileImg ? "true" : "false"}
                         value={values.profileImg ?? ''}
                         onChange={handleChange}
                     />
@@ -42,6 +43,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
                         type="text"
                         name="username"
                         placeholder="Username"
+                        aria-invalid={errors.username ? "true" : "false"}
                         value={values.username ?? ''}
                         onChange={handleChange}
                     />

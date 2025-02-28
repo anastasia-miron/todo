@@ -10,6 +10,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: calc(100dvh - 148px);
+    height: calc(100dvh - 248px);
     justify-content: center;
 }

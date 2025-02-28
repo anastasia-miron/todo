@@ -1,7 +1,5 @@
 .profile__avatar {
     font-size: 32px;
-    border: 4px solid transparent;
-    outline: 1px solid var(--pico-primary);
 }
 .profile__header{
     display: flex;
@@ -35,4 +33,24 @@
 .profile__actions{
     display: flex;
     justify-content: flex-end;
+}
+
+
+.profile__warning{
+    border: 1px solid var(--pico-del-color);
+    border-radius: 8px;
+    padding: 8px var(--pico-spacing);
+    color: var(--pico-del-color);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.profile__warning button {
+    background-color: var(--pico-del-color);
+    border: none;
+    outline: none;
+    
 }

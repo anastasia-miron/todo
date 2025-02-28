@@ -7,7 +7,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --pico-font-family: 'Open Sans', sans-serif;
-  --pico-font-size: 100%!important;
+  --pico-font-size: 100% !important;
 }
 
 body {
@@ -83,15 +83,42 @@ h3 {
   border: 0;
 }
 
-[role=button], [type=button], [type=file]::file-selector-button, [type=reset], [type=submit], button {
+[role=button],
+[type=button],
+[type=file]::file-selector-button,
+[type=reset],
+[type=submit],
+button {
   padding: 4px 8px;
+}
+
+[data-tooltip]:not(a, button, input) {
+  border: none;
+}
+
+:is(button.danger-btn) {
+  --pico-background-color: #DC3545;
+  --pico-border-color: #DC3545;
+}
+
+:is(button.danger-btn):hover {
+  --pico-background-color: #C82333 !important;
+  --pico-border-color: #C82333 !important;
 }
 
 :is(button.danger-btn.outline) {
   --pico-color: #DC3545;
   --pico-border-color: #DC3545;
 }
+
 :is(button.danger-btn.outline):hover {
-  --pico-color: #C82333!important;
-  --pico-border-color: #C82333!important;
+  --pico-color: #C82333 !important;
+  --pico-border-color: #C82333 !important;
+  --pico-background-color: transparent !important;
+}
+
+
+article footer {
+  display: flex;
+  justify-content: flex-end;
 }

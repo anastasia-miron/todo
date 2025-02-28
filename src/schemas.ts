@@ -25,6 +25,7 @@ export const userTypeSchema = Yup.object().shape({
 
 
 export const beneficiaryPageSchema = Yup.object().shape({
+    profileImg: Yup.string().url('Profile Image must be valid URL'),
     needs: Yup.string().required("Needs field is required"),
     location: Yup.string().required("Location field is required"),
     email: Yup.string().email('Invalid email').required('Email is required'),
@@ -42,7 +43,7 @@ export const requestSchema = Yup.object().shape({
     title: Yup.string(),
     description: Yup.string().min(10, 'Description is too short'),
     location: Yup.string(),
-    urgency: Yup.string().oneOf([RequestUrgencyEnum.LOW, RequestUrgencyEnum.MEDIUM, RequestUrgencyEnum.HIGH])
+    urgency: Yup.string().required().oneOf([RequestUrgencyEnum.LOW, RequestUrgencyEnum.MEDIUM, RequestUrgencyEnum.HIGH], 'The urgency is not valid'),
 })
 
 export const reviewSchema = Yup.object().shape({
@@ -62,9 +63,10 @@ export const recoverySchema = Yup.object({
         })
 
 
-export const changePasswordSchema = Yup.object({
-    password: Yup.string().required("Password is required"),
-    repeatPassword: Yup.string()
-        .oneOf([Yup.ref('password')], 'Passwords must match!')
-        .required('Repeat password is required'),
-})
+        export const changePasswordSchema = Yup.object({
+            newPassword: Yup.string().required("Password is required"),
+            repeatPassword: Yup.string()
+                .oneOf([Yup.ref('newPassword')], 'Passwords must match!')
+                .required('Repeat password is required'),
+        });
+        

@@ -14,8 +14,9 @@ import StatusBadge from "../components/StatusBadge";
 import ReviewModal from "../components/ReviewModal";
 import './RequestPage.css'
 import RequestMessage from "../components/RequestMessage";
+import useRefreshTrigger from "../hooks/useRefreshTrigger";
 
-const DEFAULT_REVIEW: ReviewPayload = { 
+const DEFAULT_REVIEW: ReviewPayload = {
     rating: 0,
     comment: ''
 }
@@ -27,6 +28,7 @@ const RequestPage: React.FC = () => {
     const signal = useAbortSignal();
     const navigate = useNavigate();
     const { user } = useCurrentUser();
+    const {trigger, mutate} = useRefreshTrigger();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [openReview, setOpenReview] = useState<boolean>(false);
     const [confirmAccept, setConfirmAccept] = useState<boolean>(false);
@@ -44,7 +46,7 @@ const RequestPage: React.FC = () => {
                 setRequest(response.data);
             }
         })()
-    }, []);
+    }, [trigger]);
 
 
     if (isLoading) {
@@ -55,7 +57,7 @@ const RequestPage: React.FC = () => {
         return (<article>Server Error</article>)
     }
 
-  
+
 
     const handleAccept = async () => {
         setIsLoading(true);
@@ -71,6 +73,7 @@ const RequestPage: React.FC = () => {
             ...request,
             status: RequestStatusEnum.IN_PROGRESS
         });
+        mutate();
     }
 
 
@@ -89,9 +92,10 @@ const RequestPage: React.FC = () => {
             status: RequestStatusEnum.DONE
         });
         setConfirmComplete(false);
+        mutate();
     };
 
-    const handleSkipReview = async() => {
+    const handleSkipReview = async () => {
         setIsLoading(true);
         const response = await apiService.post(`/requests/${request.id}/complete`, {}, { signal });
         if (signal.aborted) return;
@@ -101,6 +105,7 @@ const RequestPage: React.FC = () => {
             return
         }
         setConfirmComplete(false);
+        mutate();
     }
 
     const handleReject = async () => {
@@ -117,6 +122,7 @@ const RequestPage: React.FC = () => {
             ...request,
             status: RequestStatusEnum.OPEN
         });
+        mutate();
     }
     const handleCancel = async () => {
         setIsLoading(true);
@@ -132,6 +138,7 @@ const RequestPage: React.FC = () => {
             ...request,
             status: RequestStatusEnum.CANCELED
         });
+        mutate();
     }
 
     const handleReview = async (data: ReviewPayload) => {
@@ -144,6 +151,7 @@ const RequestPage: React.FC = () => {
             return;
         }
         setOpenReview(false);
+        mutate();
     }
 
     const handleSave = async (data: RequestPayload) => {
@@ -155,8 +163,9 @@ const RequestPage: React.FC = () => {
             toast.error(response.message);
             return;
         }
-    
+
         setOpenModal(false);
+        mutate();
     }
 
     const handleOpenProfile = (userName: string) => {
@@ -200,7 +209,14 @@ const RequestPage: React.FC = () => {
                         <button onClick={() => setOpenModal(true)}>Edit</button>
                     )}
                     {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                        <button onClick={() => setConfirmAccept(true)}>Accept</button>
+                        <span data-placement="left" data-tooltip={!user?.isVerified ? "You must be verified to accept a request!" : null}>
+                            <button
+                                aria-busy={isLoading}
+                                onClick={() => setConfirmAccept(true)}
+                                disabled={!user?.isVerified}>
+                                Accept
+                            </button>
+                        </span>
                     )}
                     {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
                         <button onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
@@ -221,7 +237,7 @@ const RequestPage: React.FC = () => {
                 {confirmReject && <ConfirmModal message="Are you sure?" onClose={() => setConfirmReject(false)} onConfirm={handleReject} open />}
                 {confirmCancel && <ConfirmModal message="Are you sure?" onClose={() => setConfirmCancel(false)} onConfirm={handleCancel} open />}
                 {confirmComplete && <ReviewModal open value={DEFAULT_REVIEW} onClose={() => setConfirmComplete(false)} onSkip={handleSkipReview} onSubmit={handleComplete} />}
-                
+
 
             </article>
 

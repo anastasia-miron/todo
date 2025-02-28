@@ -42,6 +42,15 @@ const Profile: React.FC = () => {
         setOpenModal(false);
     };
 
+    const handleVerify = async () => {
+        const response = await apiService.post('/auth/send-verify', {}, { signal });
+        if (signal.aborted) return;
+        if (!response.success) {
+            return toast.error(response.message);
+        }
+        toast.success("Verification link sent to your email!");
+    }
+
   
 
     if (isLoading) {
@@ -65,6 +74,10 @@ const Profile: React.FC = () => {
                     </div>
                 </div>
             </header>
+            {!profile.isVerified && <div className="profile__warning">
+                Please verify your account email.
+                <button onClick={handleVerify}>Verify</button>
+            </div>}
             <section className="profile__details">
                 <div className="profile__label">Rating</div>
                 <Rating value={profile.rating} readOnly />

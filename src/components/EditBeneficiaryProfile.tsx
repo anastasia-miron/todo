@@ -13,7 +13,7 @@ interface Props {
 const EditBeneficiaryProfile: React.FC<Props> = (props) => {
     const { value, onClose, onSubmit, open } = props;
 
-    const { values, handleChange, handleSubmit, dirty, isValid, isSubmitting } = useFormik({
+    const { values, handleChange, handleSubmit, dirty, isValid, isSubmitting, errors } = useFormik({
         initialValues: value,
         validationSchema: beneficiaryPageSchema,
         onSubmit,
@@ -32,24 +32,29 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         type="url"
                         name="profileImg"
                         placeholder="http://imgur.com/"
+                        aria-invalid={errors.profileImg ? "true" : "false"}
+                        aria-describedby="error-profile-img"
                         value={values.profileImg ?? ''}
                         onChange={handleChange}
                     />
+                    {errors.profileImg && <small id="error-profile-img">{errors.profileImg}</small>}
                     <label htmlFor="username">Username</label>
                     <input
                         id="username"
                         type="text"
                         name="username"
                         placeholder="Username"
+                        aria-invalid={errors.username ? "true" : "false"}
                         value={values.username ?? ''}
                         onChange={handleChange}
                     />
-
+                    {errors.username && <small id="error-username">{errors.username}</small>}
                     <label htmlFor="email">Email</label>
                     <input
                         id="email"
                         type="text"
                         name="email"
+                        aria-invalid={errors.email ? "true" : "false"}
                         placeholder="email@example.com"
                         value={values.email ?? ''}
                         onChange={handleChange}
@@ -60,6 +65,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         type="text"
                         name="phone"
                         placeholder="070000000"
+                        aria-invalid={errors.phone ? "true" : "false"}
                         value={values.phone ?? ''}
                         onChange={handleChange}
                     />
@@ -69,6 +75,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         type="text"
                         name="needs"
                         placeholder="Needs"
+                        aria-invalid={errors.needs ? "true" : "false"}
                         value={values.needs ?? ''}
                         onChange={handleChange}
                     />
@@ -79,6 +86,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         type="text"
                         name="location"
                         placeholder="Location"
+                        aria-invalid={errors.location ? "true" : "false"}
                         value={values.location ?? ''}
                         onChange={handleChange}
                     />

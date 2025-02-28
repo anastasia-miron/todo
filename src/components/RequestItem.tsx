@@ -127,8 +127,15 @@ const RequestItem: React.FC<Props> = (props) => {
                 
                 <StatusBadge status={request.status} className="request-item__status" />
                 {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button aria-busy={isLoading} onClick={() => setConfirmAccept(true)}>Accept</button>
-                )}
+                    <span data-placement="left" data-tooltip={!user?.isVerified ? "You must be verified to accept a request!" : null}>
+                     <button 
+                     aria-busy={isLoading}
+                     onClick={() => setConfirmAccept(true)}
+                     disabled={!user?.isVerified}>
+                     Accept
+                     </button>
+                     </span>
+                     )}
                 {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
                     <button aria-busy={isLoading} onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
                 )}
