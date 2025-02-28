@@ -5,7 +5,7 @@ function useAbortSignal(): AbortSignal {
 
   useLayoutEffect(() => {
     ctrlRef.current = new AbortController();
-    return () => ctrlRef.current.abort();
+    return () => ctrlRef.current.abort('Unmount');
   }, []);
 
   return ctrlRef.current.signal;

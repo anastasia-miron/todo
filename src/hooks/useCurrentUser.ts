@@ -21,6 +21,7 @@ const useCurrentUser = () => {
         setUser(null);
     }
 
+
     useEffect(() => {
         const user = token ? decodeJwt<AppJwtPayload>(token).user : null;
         setUser(user);

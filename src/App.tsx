@@ -17,6 +17,7 @@ import RequestPage from "./pages/RequestPage";
 import ReviewPage from "./pages/ReviewPage";
 import UserPage from "./pages/UserPage.tsx";
 import SuccessfullyChangedPage from "./pages/SuccessfullyChangedPage.tsx";
+import VerificationPage from "./pages/VerificationPage.tsx";
 
 
 export default function Profile() {
@@ -28,8 +29,9 @@ export default function Profile() {
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
       <Route path="/change-password" element={<ChangePasswordPage />} />
+      <Route path="/verification" element={<VerificationPage />} />
       <Route path="/successfully-changed" element={<SuccessfullyChangedPage />} />
- <Route path="/app" element={<AppLayout />} >
+        <Route path="/app" element={<AppLayout />} >
         <Route path="/app/user-type" element={<UserTypePage />} />
         <Route path="/app/profile" element={<ProfilePage />} />
         <Route path="/app/settings" element={<SettingsPage />} />

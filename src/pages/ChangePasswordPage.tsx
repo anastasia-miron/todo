@@ -21,7 +21,6 @@ const ChangePasswordPage: React.FC = () => {
     const signal = useAbortSignal();
     const [passwordChanged, setPasswordChanged] = useState(false);
     const token = search.get("token");
-    console.log()
 
     const { values, handleSubmit, setFieldValue, errors, touched } = useFormik({
         initialValues: DEFAULT_VALUES,
@@ -29,18 +28,18 @@ const ChangePasswordPage: React.FC = () => {
 
         onSubmit: async (data) => {
             
-            const response = await apiService.post<string>("/change-password", {...data, token}, { signal });
+            const response = await apiService.post<string>("/auth/change-password", {...data, token}, { signal });
             if (signal.aborted) return;
             if (!response.success) {
                 return toast.error(response.message);
             }
             setPasswordChanged(true);
             toast.success("Password changed successfully!");
-            await navigate('/app/profile', { replace: true });
+            navigate('/successfully-changed', { replace: true });
         }
     });
 
-    if(!token) {
+    if (!token) {
         return <NotFoundPage />
     }
 

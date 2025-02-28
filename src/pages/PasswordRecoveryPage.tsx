@@ -7,6 +7,7 @@ import { recoverySchema } from "../schemas";
 import apiService from "../services/api.service";
 import { toast } from "react-toastify";
 import useAbortSignal from "../hooks/useAbortSignal";
+import "./PasswordRecoveryPage.css";    
 
 
 const DEFAULT_VALUES = {
@@ -22,7 +23,7 @@ const RecoveryPasswordPage: React.FC = () => {
         initialValues: DEFAULT_VALUES,
         validationSchema: recoverySchema,
         onSubmit: async (data) => {
-            const response = await apiService.post<string>("/password-recovery", data, { signal });
+            const response = await apiService.post<string>("/auth/password-recovery", data, { signal });
             if (signal.aborted) return;
             if (!response.success) {
                 return toast.error(response.message);
@@ -40,7 +41,11 @@ const RecoveryPasswordPage: React.FC = () => {
                     <Logo className="page__logo" onClick={() => navigate("/")} />
                     <div className="btn-placeholder" />
                 </div>
-                <h1>Password recovery</h1>
+                <article>
+                <h1 className="recovery-page">Password recovery</h1>
+                <p className="recovery-page__text">
+                 Please enter your email address. We'll send you a link to reset your password.
+                </p>
                 <div>
                     <fieldset>
                         <label htmlFor="email">Email</label>
@@ -56,9 +61,10 @@ const RecoveryPasswordPage: React.FC = () => {
                         )}
                     </fieldset>
                 </div>
-                <div className="recovery_page__actions">
+                <div className="recovery-page__actions">
                     <button type="submit" disabled={emailSent}>Send Reset Link</button>
                 </div>
+                </article>
             </form>
         </div>
     );
