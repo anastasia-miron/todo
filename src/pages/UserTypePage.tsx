@@ -21,7 +21,7 @@ const UserTypePage: React.FC = () => {
     const navigate = useNavigate();
     const {updateUser} = useCurrentUser();
 
-    const { values, setFieldValue, handleChange, handleSubmit, dirty, isValid } = useFormik({
+    const { values, setFieldValue, handleChange, handleSubmit, dirty, isValid, errors } = useFormik({
         initialValues: DEFAULT_VALUE,
         validationSchema: userTypeSchema,
         onSubmit: async (data) => {
@@ -58,22 +58,54 @@ const UserTypePage: React.FC = () => {
                     {values.type === UserTypeEnum.BENEFICIARY && (
                         <div>
                             <label htmlFor="needs">Needs</label>
-                            <input id="needs" name="needs" value={values.needs} onChange={handleChange} />
+                            <input 
+                                id="needs" 
+                                name="needs" 
+                                aria-invalid={errors.needs ? "true" : "false"}
+                                aria-describedby="error-needs"
+                                value={values.needs} 
+                                onChange={handleChange}
+                             />
+                            {errors.needs && <small id="error-needs">{errors.needs}</small>}
                             <label htmlFor="location">Location</label>
-                            <input id="location" name="location" value={values.location} onChange={handleChange} />
+                            <input 
+                                id="location" 
+                                name="location" 
+                                aria-invalid={errors.location ? "true" : "false"}
+                                aria-describedby="error-location"
+                                value={values.location} 
+                                onChange={handleChange} 
+                            />
+                            {errors.location && <small id="error-location">{errors.location}</small>}
                         </div>
                     )}
                     {values.type === UserTypeEnum.VOLUNTEER && (
                         <div>
                             <label htmlFor="skills">Skills</label>
-                            <input id="skills" name="skills" value={values.skills} onChange={handleChange} />
+                            <input 
+                            id="skills" 
+                            name="skills" 
+                            aria-invalid={errors.skills ? "true" : "false"}
+                            aria-describedby="error-skills"
+                            value={values.skills} 
+                            onChange={handleChange} 
+                            />
+                            {errors.skills && <small id="error-skills">{errors.skills}</small>}
                             <label htmlFor="availability">Availability</label>
-                            <select id="availability" name="availability" value={values.availability} onChange={handleChange}>
+                            <select 
+                            id="availability" 
+                            name="availability" 
+                            required 
+                            aria-invalid={errors.availability ? "true" : "false"}
+                            aria-describedby="error-availability"
+                            value={values.availability} 
+                            onChange={handleChange}>
                                 <option value="">Select availability</option>
                                 {AVAILABILITY_OPTIONS.map(option => (
                                     <option key={option} value={option}>{option}</option>
                                 ))}
                             </select>
+                            {errors.availability && <small id="error-availability">{errors.availability}</small>}
                         </div>
                     )}
                     <footer>

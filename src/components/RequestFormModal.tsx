@@ -23,7 +23,7 @@ const DEFAULT_VALUE: RequestPayload = {
 const RequestFormModal: React.FC<Props> = (props) => {
     const { request, onClose, onSubmit, open } = props;
 
-    const { values, handleChange, handleSubmit, setValues, dirty, isValid, isSubmitting } = useFormik({
+    const { values, handleChange, handleSubmit, setValues, dirty, isValid, isSubmitting, errors } = useFormik({
         initialValues: DEFAULT_VALUE,
         validationSchema: requestSchema,
         onSubmit,
@@ -52,17 +52,23 @@ const RequestFormModal: React.FC<Props> = (props) => {
                         name="title"
                         type="text"
                         placeholder="Title"
+                        aria-invalid={errors.title ? "true" : "false"}
+                        aria-describedby="error-title"
                         value={values.title}
                         onChange={handleChange}
                         required
                     />
+                    {errors.title && <small id="error-title">{errors.title}</small>}
                     <textarea
                         name="description"
                         placeholder="Description"
+                        aria-invalid={errors.description ? "true" : "false"}
+                        aria-describedby="error-description"
                         value={values.description}
                         onChange={handleChange}
                         required
                     />
+                    {errors.description && <small id="error-description">{errors.description}</small>}
                     <input
                         name="location"
                         type="text"

@@ -59,33 +59,45 @@ const SignUpPage: React.FC = () => {
                             type="text"
                             name="username"
                             placeholder="Username"
+                            aria-invalid={errors.username ? "true" : "false"}
+                            aria-describedby="error-username"
                             value={values.username}
                             onChange={(ev) => setFieldValue('username', ev.target.value)}
                         />
+                        {errors.username && <small id="error-username">{errors.username}</small>}
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             name="email"
+                            aria-invalid={errors.email ? "true" : "false"}
+                            aria-describedby="error-email"
                             placeholder="email@example.com"
                             value={values.email}
                             onChange={(ev) => setFieldValue('email', ev.target.value)}
                         />
+                       {errors.email && <small id="error-email">{errors.email}</small>}
                         <label htmlFor="phone">Phone</label>
                         <input
                             type="text"
                             name="phone"
-                            placeholder="078123456"
+                            placeholder="0XXXXXXXX"
+                            aria-invalid={errors.phone ? "true" : "false"}
+                            aria-describedby="error-phone"
                             value={values.phone}
                             onChange={(ev) => setFieldValue('phone', ev.target.value)}
                         />
+                        {errors.phone && <small id="error-phone">{errors.phone}</small>}
                         <label htmlFor="password">Password</label>
                         <input
                             type="password"
                             name="password"
+                            aria-invalid={errors.phone ? "true" : "false"}
+                            aria-describedby="error-phone"
                             placeholder="Password"
                             value={values.password}
                             onChange={(ev) => setFieldValue('password', ev.target.value)}
                         />
+                        {errors.password && <small id="error-password">{errors.password}</small>}
                         <label htmlFor="repeatPassword">Repeat Password</label>
                         <input
                             type="password"

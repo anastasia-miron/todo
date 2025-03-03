@@ -45,6 +45,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         name="username"
                         placeholder="Username"
                         aria-invalid={errors.username ? "true" : "false"}
+                        aria-describedby="error-username"
                         value={values.username ?? ''}
                         onChange={handleChange}
                     />
@@ -55,20 +56,24 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         type="text"
                         name="email"
                         aria-invalid={errors.email ? "true" : "false"}
+                        aria-describedby="error-email"
                         placeholder="email@example.com"
                         value={values.email ?? ''}
                         onChange={handleChange}
                     />
+                    {errors.email && <small id="error-email">{errors.email}</small>}
                     <label htmlFor="phone">Phone</label>
                     <input
                         id="phone"
                         type="text"
                         name="phone"
-                        placeholder="070000000"
+                        placeholder="0XXXXXXXX"
                         aria-invalid={errors.phone ? "true" : "false"}
+                        aria-describedby="error-phone"
                         value={values.phone ?? ''}
                         onChange={handleChange}
                     />
+                    {errors.phone && <small id="error-phone">{errors.phone}</small>}
                     <label htmlFor="needs">Needs</label>
                     <input
                         id="needs"
@@ -76,9 +81,11 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         name="needs"
                         placeholder="Needs"
                         aria-invalid={errors.needs ? "true" : "false"}
+                        aria-describedby="error-needs"
                         value={values.needs ?? ''}
                         onChange={handleChange}
                     />
+                    {errors.needs && <small id="error-needs">{errors.needs}</small>}
 
                     <label htmlFor="location">Location</label>
                     <input
@@ -87,9 +94,11 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         name="location"
                         placeholder="Location"
                         aria-invalid={errors.location ? "true" : "false"}
+                        aria-describedby="error-location"
                         value={values.location ?? ''}
                         onChange={handleChange}
                     />
+                    {errors.location && <small id="error-location">{errors.location}</small>}
 
                     <footer className="grid">
                         <button
