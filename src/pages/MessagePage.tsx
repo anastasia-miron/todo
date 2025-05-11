@@ -1,13 +1,10 @@
 import { useState } from "react";
-import {
-  MessageSquare,
-  Search,
-  Filter,
-} from "lucide-react";
+import { MessageSquare, Search, Filter } from "lucide-react";
 import { useMessages } from "../context/MessageContext";
 import Avatar from "../components/Avatar";
 import { Link, useNavigate } from "react-router";
 import { UserModel } from "../typings/models";
+import apiService from "../services/api.service";
 
 // Format the timestamp
 function formatTime(timestamp: string) {
@@ -29,7 +26,7 @@ function formatTime(timestamp: string) {
 export default function MessagesDashboardPage() {
   const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const { messages: sampleRequests } = useMessages();
+  const { messages: sampleRequests, setMessages } = useMessages();
   const navigate = useNavigate();
 
   // Filter requests based on active tab and search query
@@ -67,9 +64,18 @@ export default function MessagesDashboardPage() {
     0
   );
 
-  const handleViewRequest = (requestId: string) => {
-   //use raouter to navigate to the request page 
-   navigate(`/app/requests/${requestId}`);
+  const markConversationReadHandler = async (requestId: string) => {
+    await apiService.put(`/requests/messages/${requestId}/read`, null);
+
+    setMessages((prev) =>
+      prev.map((m) => (m.id === requestId ? { ...m, unreadCount: 0 } : m))
+    );
+  };
+
+  const handleViewRequest = async (requestId: string) => {
+    await markConversationReadHandler(requestId);
+
+    navigate(`/app/requests/${requestId}`);
     console.log(`View request with ID: ${requestId}`);
   };
 

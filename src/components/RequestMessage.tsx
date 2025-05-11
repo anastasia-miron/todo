@@ -4,12 +4,12 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import { RequestModel, MessageModel } from "../typings/models";
 import useAbortSignal from "../hooks/useAbortSignal";
 import { useParams } from "react-router";
-import useSSE from "../hooks/useSSE";
-import { ServerSideEvent } from "../typings/types";
 import UserMessageItem from "./UserMessageItem";
 import SystemMessageItem from "./SystemMessageItem";
 import { SendHorizontalIcon } from "lucide-react";
 import "./RequestMessage.css";
+import { useEventSource } from "../hooks/useEvenetSource";
+
 
 interface Props {
   request: RequestModel;
@@ -22,7 +22,19 @@ const RequestMessage: React.FC<Props> = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [content, setContent] = useState<string>("");
   const signal = useAbortSignal();
-  const { source } = useSSE("requests", id!);
+  useEventSource(
+    `/sse/${id!}`,
+    "message",
+    (ev) => {
+      try {
+        const payload = JSON.parse(ev.data) as { message: MessageModel };
+        addMessage(payload.message);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  );
+  
 
   const addMessage = (msg: MessageModel) => {
     setMessages((prev) => {
@@ -30,21 +42,6 @@ const RequestMessage: React.FC<Props> = (props) => {
       return isAdded ? prev : [...prev, msg];
     });
   };
-
-  useEffect(() => {
-    const listener = (ev: ServerSideEvent) => {
-      try {
-        const payload = JSON.parse(ev.data) as { message: MessageModel };
-        addMessage(payload.message);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    source.addEventListener("message", listener);
-    return () => {
-      source.removeEventListener("message", listener);
-    };
-  }, [source]);
 
   useLayoutEffect(() => {
     (async () => {

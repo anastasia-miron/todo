@@ -4,12 +4,10 @@ import Logo from "./Logo";
 import "./NavBar.css";
 import { ChevronLeft } from "lucide-react";
 import useCurrentUser from "../hooks/useCurrentUser";
-import { useCallback, useEffect, useRef, useState } from "react";
-import useSSE from "../hooks/useSSE";
+import { useCallback, useEffect, useRef } from "react";
 import {
   MessageRecievedPayload,
   NotificationPayload,
-  ServerSideEvent,
 } from "../typings/types";
 import NotificationComponent from "./Notification";
 import useAbortSignal from "../hooks/useAbortSignal";
@@ -17,14 +15,13 @@ import apiService from "../services/api.service";
 import { useNotifications } from "../context/NotificationContext";
 import MessageNotificationButton from "./ui/MessageNotificationButton";
 import { useMessages } from "../context/MessageContext";
+import { useEventSource } from "../hooks/useEvenetSource";
 
 const NavBar: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDetailsElement>(null);
   const { user, logout } = useCurrentUser();
-  const { source: msgSource } = useSSE("messages");
-  const { source: notificationSource } = useSSE("notifications");
   const signal = useAbortSignal();
   const { notifications, setNotifications } = useNotifications();
   const { messages, setMessages } = useMessages();
@@ -71,81 +68,50 @@ const NavBar: React.FC = () => {
     [messages]
   );
 
-  useEffect(() => {
-    const notificationListener = (ev: ServerSideEvent) => {
-      try {
-        const payload = JSON.parse(ev.data);
-        console.log(payload);
-        setNotifications((prev) => {
-          const newArray = [payload, ...prev];
-          return newArray;
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    };
+  // inside your component
+  useEventSource("/sse/notifications", `notification:${user?.type}`, (ev) => {
+    try {
+      const payload = JSON.parse(ev.data);
+      console.log(payload);
+      setNotifications((prev) => {
+        const newArray = [payload, ...prev];
+        return newArray;
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
-    const notificationSubject = `notification:${user?.type}`;
+  useEventSource("/sse/recieve_message", "subscribe_message", (ev) => {
+    try {
+      const payload = JSON.parse(ev.data) as MessageRecievedPayload;
 
-    notificationSource.addEventListener(
-      notificationSubject,
-      notificationListener
-    );
+      setMessages((prev) => {
+        const idx = prev.findIndex((m) => m.id === payload.id);
+        if (idx > -1) {
+          return prev.map((m, i) =>
+            i === idx
+              ? {
+                  ...m,
+                  lastMessage: {
+                    ...m.lastMessage,
+                    content: payload.lastMessage.content,
+                    timestamp: payload.lastMessage.timestamp,
+                    isSystem: payload.lastMessage.isSystem,
+                    sender: payload.lastMessage.sender ?? null,
+                  },
+                  unreadCount: m.unreadCount + 1,
+                }
+              : m
+          );
+        }
 
-    return () => {
-      notificationSource.removeEventListener(
-        notificationSubject,
-        notificationListener
-      );
-    };
-  }, [notificationSource]);
-
-  useEffect(() => {
-    const recievedMessagesListener = (ev: ServerSideEvent) => {
-      try {
-        const payload = JSON.parse(ev.data) as MessageRecievedPayload;
-
-        setMessages((prev) => {
-          const idx = prev.findIndex((m) => m.id === payload.id);
-          if (idx > -1) {
-            return prev.map((m, i) =>
-              i === idx
-                ? {
-                    ...m,
-                    lastMessage: {
-                      ...m.lastMessage,
-                      content: payload.lastMessage.content,
-                      timestamp: payload.lastMessage.timestamp,
-                      isSystem: payload.lastMessage.isSystem,
-                      sender: payload.lastMessage.sender ?? null,
-                    },
-                    unreadCount: m.unreadCount + 1,
-                  }
-                : m
-            );
-          }
-
-          return [payload, ...prev];
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    };
-
-    const recievedMessagesSubject = "subscribe_message";
-
-    console.log(recievedMessagesSubject);
-    msgSource.addEventListener(
-      recievedMessagesSubject,
-      recievedMessagesListener
-    );
-    return () => {
-      msgSource.removeEventListener(
-        recievedMessagesSubject,
-        recievedMessagesListener
-      );
-    };
-  }, [msgSource]);
+        return [payload, ...prev];
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  });
 
   const handleClose = () => {
     if (!menuRef.current) return;

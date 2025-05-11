@@ -8,8 +8,6 @@ export interface AutocompleteProps {
   onChange?: (v: string) => void;
 }
 
-
-// TO DO: Replace key for google
 export const Autocomplete: React.FC<AutocompleteProps> = ({
   onSelect,
   value,
@@ -21,25 +19,27 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     isPlacePredictionsLoading,
     placesService,
   } = useGoogle({
-    apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-    options: {
-      componentRestrictions: { country: "md" },
-    },
+    apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+    options: { componentRestrictions: { country: "md" },   },
     debounce: 600,
   });
 
   const [inputValue, setInputValue] = useState(value ?? "");
-
   const [isOpen, setIsOpen] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(0);
+
+  // **NEW**: track drop direction
+  const [dropDirection, setDropDirection] = useState<"down" | "up">("down");
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Mirror external value
   useEffect(() => {
     if (value !== undefined && value !== inputValue) {
       setInputValue(value);
     }
   }, [value]);
-  // close dropdown on outside click
+
+  // Close on outside click
   useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
       if (!containerRef.current?.contains(e.target as Node)) {
@@ -50,12 +50,35 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
+  // **NEW**: recalc dropDirection when menu opens, on scroll/resize
+  useEffect(() => {
+    if (!isOpen || !containerRef.current) return;
+
+    const checkPosition = () => {
+      const rect = containerRef.current!.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      // ~200px max height of dropdown
+      if (spaceBelow < 150 && spaceAbove > spaceBelow) {
+        setDropDirection("up");
+      } else {
+        setDropDirection("down");
+      }
+    };
+
+    checkPosition();
+    window.addEventListener("resize", checkPosition);
+    window.addEventListener("scroll", checkPosition, true);
+    return () => {
+      window.removeEventListener("resize", checkPosition);
+      window.removeEventListener("scroll", checkPosition, true);
+    };
+  }, [isOpen]);
+
   const openAndFetch = (v: string) => {
     setInputValue(v);
     setIsOpen(!!v);
-    if (onChange) {
-      onChange(v);
-    }
+    onChange?.(v);
     getPlacePredictions({ input: v });
     setHighlightIndex(0);
   };
@@ -82,7 +105,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     if (!isOpen) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setHighlightIndex((i) => (i < placePredictions.length - 1 ? i + 1 : i));
+      setHighlightIndex((i) =>
+        i < placePredictions.length - 1 ? i + 1 : i
+      );
     }
     if (e.key === "ArrowUp") {
       e.preventDefault();
@@ -99,7 +124,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   };
 
   return (
-    <div ref={containerRef} className="relative w-full ">
+    <div ref={containerRef} className="relative w-full">
       <input
         type="text"
         value={inputValue}
@@ -107,35 +132,31 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         onChange={(e) => openAndFetch(e.target.value)}
         onKeyDown={onKeyDown}
         onFocus={() => inputValue && setIsOpen(true)}
-        style={{
-          width: "100%",
-          padding: "8px",
-          boxSizing: "border-box",
-        }}
+        className="w-full p-2 border rounded"
       />
 
       {isOpen && (
         <div
-        className="absolute top-[100%] left-0 right-0 max-h-[200px] overflow-y-auto bg-white dark:bg-gray-800 border z-19"
-          
+          className={`absolute z-10 w-full bg-white dark:bg-gray-800  border rounded shadow max-h-[150px] overflow-y-auto
+            ${dropDirection === "down" ? "top-full mt-1" : "bottom-full mb-1"}`}
         >
           {isPlacePredictionsLoading ? (
-            <div style={{ padding: 8 }}>Loading…</div>
+            <div className="p-2">Loading…</div>
           ) : placePredictions.length ? (
             placePredictions.map((p, i) => (
               <div
                 key={p.place_id}
                 onMouseDown={() => select(p.place_id, p.description)}
                 onMouseEnter={() => setHighlightIndex(i)}
-                className={`px-2 py-2 cursor-pointer ${
-                  i === highlightIndex ? "bg-gray-800" : ""
+                className={`px-2 py-2 cursor-pointer dark:hover:bg-gray-700 ${
+                  i === highlightIndex ? "bg-gray-200 dark:bg-gray-700" : ""
                 }`}
               >
                 {p.description}
               </div>
             ))
           ) : (
-            <div style={{ padding: 8 }}>No results</div>
+            <div className="p-2">No results</div>
           )}
         </div>
       )}
