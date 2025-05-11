@@ -32,7 +32,7 @@ const ReviewItem: React.FC<Props> = (props) => {
 
     const handleEdit = async (updatedReview: { rating: number; comment: string }) => {
         setIsLoading(true);
-        const response = await apiService.put(`/reviews/${review.id}`, updatedReview, { signal });
+        const response = await apiService.put(`/requests/review/${review.id}`, updatedReview, { signal });
         if (signal.aborted) return;
         setIsLoading(false);
         if (!response.success) {
@@ -43,6 +43,7 @@ const ReviewItem: React.FC<Props> = (props) => {
         setIsEditing(false);
         toast.success("Review updated successfully!");
     };
+    
     const handleDelete = async () => {
         setIsLoading(true);
         const response = await apiService.delete(`/reviews/${review.id}`, { signal });
@@ -57,18 +58,18 @@ const ReviewItem: React.FC<Props> = (props) => {
         toast.success("Review deleted successfully!");
     };
 
-    const handleOpenProfile = (userName: string) => {
-        if (user?.username === userName) {
+    const handleOpenProfile = (id: string) => {
+        if (user?.id === id) {
             navigate('/app/profile');
             return;
         }
-        navigate(`/app/user/${userName}`);
+        navigate(`/app/user/${id}`);
     }
 
     return (
         <article className="review-item">
             <header className="review-item__header">
-                <div className="review-item__user" onClick={() => handleOpenProfile(review.from.username)}>
+                <div className="review-item__user" onClick={() => handleOpenProfile(review.from.id)}>
                     <Avatar user={review.from} />
                     <span>{review.from.username}</span>
                 </div>

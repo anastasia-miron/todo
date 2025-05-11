@@ -56,7 +56,11 @@ export const volunteerPageSchema = Yup.object().shape({
 export const requestSchema = Yup.object().shape({
     title: Yup.string().min(3, 'Title is too short'),
     description: Yup.string().min(10, 'Description is too short'),
-    location: Yup.string(),
+    location: Yup.object({
+        address: Yup.string().required("Address is required"),
+        lat:     Yup.number().required(),
+        lng:     Yup.number().required(),
+      }),
     urgency: Yup.string().required().oneOf([RequestUrgencyEnum.LOW, RequestUrgencyEnum.MEDIUM, RequestUrgencyEnum.HIGH], 'The urgency is not valid'),
 })
 

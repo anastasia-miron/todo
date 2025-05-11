@@ -1,22 +1,35 @@
-import { SSE } from 'sse.js';
-import useToken from './useToken';
-import { useMemo } from 'react';
+import { SSE } from "sse.js";
+import useToken from "./useToken";
+import { useMemo } from "react";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-const useSSE = (requestId: string) => {
-    const { token } = useToken();
+const useSSE = (
+  type: "requests" | "notifications" | "messages",
+  requestId?: string
+) => {
+  const { token } = useToken();
 
-    const source = useMemo(() => {
-        return new SSE(`${apiUrl}/sse/${requestId}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        })
-    }, [token]);
+  const url = useMemo(() => {
+    switch (type) {
+      case "requests":
+        return `${apiUrl}/sse/${requestId}`;
+      case "notifications":
+        return `${apiUrl}/sse/notifications`;
+      case "messages":
+        return `${apiUrl}/sse/recieve_message`;
+    }
+  }, [requestId, type]);
 
-    source.onabort = () => console.log('Abort');
+  const source = useMemo(() => {
+    return new SSE(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  }, [token, url]);
 
-    return { source,  };
-}
+  source.onabort = () => console.log("Abort");
+
+  return { source };
+};
 
 export default useSSE;
-

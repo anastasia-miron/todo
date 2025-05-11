@@ -79,12 +79,12 @@ const RequestItem: React.FC<Props> = (props) => {
     }
 
 
-    const handleOpenProfile = (userName: string) => {
-        if (user?.username === userName) {
+    const handleOpenProfile = (id: string) => {
+        if (user?.id === id) {
             navigate('/app/profile');
             return;
         }
-        navigate(`/app/user/${userName}`);
+        navigate(`/app/user/${id}`);
     }
 
     const handleView = () => {
@@ -105,7 +105,7 @@ const RequestItem: React.FC<Props> = (props) => {
             <div className="request-item__actors">
                 <div className="request-item__actor">
                     <strong>Beneficiary:</strong>
-                    <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary.username)}>
+                    <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary.id)}>
                         <Avatar user={request.beneficiary} />
                         <span>{request.beneficiary.username}</span>
                     </div>
@@ -113,7 +113,7 @@ const RequestItem: React.FC<Props> = (props) => {
 
                 {request.volunteer && <div className="request-item__actor">
                     <strong>Volunteer:</strong>
-                    <div className="request-item__volunteer" onClick={() => handleOpenProfile(request.volunteer!.username)}>
+                    <div className="request-item__volunteer" onClick={() => handleOpenProfile(request.volunteer!.id)}>
                         <Avatar user={request.volunteer} />
                         <span>{request.volunteer.username}</span>
                     </div>

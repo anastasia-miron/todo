@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.5;
@@ -90,6 +92,29 @@ h3 {
 [type=submit],
 button {
   padding: 4px 8px;
+}
+
+a[role=button] {
+  padding: 0;
+}
+
+img[role=button] {
+  /* Reset the actual properties that the Pico rule sets */
+  padding:       initial !important;
+  border:        initial !important;
+  border-radius: initial !important;
+  outline:       initial !important;
+  background-color: initial !important;
+  box-shadow:      initial !important;
+  color:           initial !important;
+  font-weight:     initial !important;
+  font-size:       initial !important;
+  line-height:     initial !important;
+  text-align:      initial !important;
+  text-decoration: initial !important;
+  cursor:          initial !important;
+  user-select:     initial !important;
+  transition:      initial !important;
 }
 
 [data-tooltip]:not(a, button, input) {

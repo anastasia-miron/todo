@@ -27,12 +27,14 @@ const RequestListPage: React.FC = () => {
             if (signal.aborted) return;
             setIsLoading(false);
             if (response.success) {
+                console.log('check rows data',response.data)
                 setList(response.data);
             }
         })()
     }, [tab, trigger])
 
     const handleSave = async (data: RequestPayload) => {
+        console.log('check the data which i get')
         const response = await apiService.post('/requests', data, { signal });
         if (signal.aborted) return;
         if (!response.success) {
