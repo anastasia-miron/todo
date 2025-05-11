@@ -300,7 +300,7 @@ export default function NotificationsPage() {
         {showLeftScroll && (
           <div
             onClick={() => scrollTabs("left")}
-            className="absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 rounded-full p-1 shadow-sm"
+            className="absolute cursor-pointer left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-900 bg-opacity-80 rounded-full p-1 shadow-sm"
             aria-label="Scroll tabs left"
           >
             <ChevronLeft className="h-5 w-5 text-gray-600" />
@@ -342,7 +342,7 @@ export default function NotificationsPage() {
         {showRightScroll && (
           <div
             onClick={() => scrollTabs("right")}
-            className="absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 z-10 bg-white bg-opacity-80 rounded-full p-1 shadow-sm"
+            className="absolute cursor-pointer right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-gray-900 bg-opacity-80 rounded-full p-1 shadow-sm"
             aria-label="Scroll tabs right"
           >
             <ChevronRight className="h-5 w-5 text-gray-600" />
@@ -356,7 +356,7 @@ export default function NotificationsPage() {
           filteredNotifications.map((notification, index) => (
             <div
               key={index}
-              className={`bg-white hover:bg-gray-50 cursor-pointer rounded-lg border shadow-sm p-4 transition-colors ${
+              className={`bg-white dark:bg-gray-900 hover:bg-gray-50 cursor-pointer rounded-lg border shadow-sm p-4 transition-colors ${
                 !notification.isRead ? "border-l-4 border-l-blue-500" : ""
               }`}
               onClick={() => markAsRead(notification.id)}

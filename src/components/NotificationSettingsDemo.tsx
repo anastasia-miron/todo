@@ -53,7 +53,7 @@ export default function NotificationSettingsDemo() {
   };
 
   return (
-    <div className="flex flex-col h-86 items-center w-full max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="flex flex-col h-86 items-center w-full max-w-md mx-auto bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden">
       <div className="w-full relative" style={{ height: "400px" }}>
         {/* Browser interface */}
         <div className="absolute inset-0 flex flex-col">
@@ -79,7 +79,7 @@ export default function NotificationSettingsDemo() {
                   </summary>
                   <ul
                     dir="rtl"
-                    className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-md overflow-hidden p-1 z-10"
+                    className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 shadow-lg rounded-md overflow-hidden p-1 z-10"
                   >
                     <li className="px-3 py-2 hover:bg-gray-100 rounded">
                       Profile
@@ -109,12 +109,12 @@ export default function NotificationSettingsDemo() {
             </div>
           </div>
 
-          <div className="flex-1 bg-white p-4 relative">
+          <div className="flex-1 bg-white dark:bg-gray-900 p-4 relative">
             {step > 3 && (
               <div>
                 <h2>Settings</h2>
                 <article className="user-settings">
-                  <div className="relative flex items-center justify-between p-4 bg-white rounded-lg shadow">
+                  <div className="relative flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg shadow">
                     <div className="flex items-center space-x-2">
                       <Bell className="text-gray-600" size={20} />
                       <span className="font-medium text-gray-700">

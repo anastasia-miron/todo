@@ -106,7 +106,7 @@ export function MultiSelect<T extends { id: string; name: string }>({
       <select
         ref={selectRef}
         multiple
-        className="sr-only"
+        className="sr-only dark:bg-gray-900"
         onChange={handleSelectChange}
         aria-hidden="true"
       >
@@ -119,7 +119,7 @@ export function MultiSelect<T extends { id: string; name: string }>({
 
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 h-12 py-2 border border-gray-500 rounded-md bg-white text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full dark:bg-gray-900 px-3 h-12 py-2 border border-gray-500 rounded-md bg-white text-left flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         <span className={selectedValues.length === 0 ? "text-gray-400" : ""}>
           {selectedValues.length === 0
@@ -140,11 +140,11 @@ export function MultiSelect<T extends { id: string; name: string }>({
       {/* Custom dropdown */}
       {isOpen && (
         <div
-          className={`absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-67 overflow-auto ${
+          className={`absolute z-10 w-full bg-white dark:bg-gray-900 border border-gray-300 rounded-md shadow-lg max-h-67 overflow-auto ${
             dropDirection === "up" ? "bottom-full mb-1" : "top-full mt-1"
           }`}
         >
-          <div className="sticky top-0 bg-white p-2 border-b border-gray-200 z-10">
+          <div className="sticky top-0 bg-white dark:bg-gray-900 p-2 border-b border-gray-200 z-10">
             <div className="relative">
               <input
                 type="text"
@@ -174,7 +174,7 @@ export function MultiSelect<T extends { id: string; name: string }>({
               {filteredOptions.map((option) => (
                 <div
                   key={option.id}
-                  className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                  className="flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-500 cursor-pointer"
                   onClick={() => {
                     const newSelected = selectedValues.some(
                       (selectedValue) => selectedValue.id === option.id

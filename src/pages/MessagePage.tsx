@@ -92,7 +92,7 @@ export default function MessagesDashboardPage() {
         </div>
 
         {/* Search and filter */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm p-4 mb-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-grow">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -122,7 +122,7 @@ export default function MessagesDashboardPage() {
         </div>
 
         {/* Messages list */}
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm overflow-hidden">
           {filteredRequests.length > 0 ? (
             <div className="divide-y divide-gray-200">
               {filteredRequests.map((request) => (

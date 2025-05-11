@@ -75,7 +75,7 @@ const SettingsPage: React.FC = () => {
     <div>
       <h2>Settings</h2>
 
-      <article className="relative flex items-center justify-between p-4 bg-white rounded-lg shadow">
+      <article className="relative flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg shadow">
         <div className="flex items-center space-x-2">
           <Bell className="text-gray-600" size={20} />
           <span className="font-medium text-gray-700">Allow Notifications</span>
@@ -88,7 +88,7 @@ const SettingsPage: React.FC = () => {
           } `}
         >
           <span
-            className={`transform transition-transform bg-white w-5 h-5 rounded-full shadow ${
+            className={`transform transition-transform bg-white dark:bg-gray-900 w-5 h-5 rounded-full shadow ${
               enabled ? "translate-x-5" : "translate-x-1"
             }`}
           />

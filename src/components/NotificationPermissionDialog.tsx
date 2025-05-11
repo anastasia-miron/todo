@@ -76,7 +76,7 @@ export default function NotificationPermissionDialog() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50 bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg shadow-xl p-6 max-w-md mx-4 relative">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl p-6 max-w-md mx-4 relative">
         <div className="flex flex-col items-center mb-4">
           <div className="p-3 bg-blue-100 rounded-full mb-4">
             <Bell className="text-blue-600" size={32} />

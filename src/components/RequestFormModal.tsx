@@ -155,7 +155,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
 
   return (
     <dialog open={open}>
-      <div className="relative bg-white max-md:w-full! max-md:h-full flex flex-col">
+      <div className="relative bg-white dark:bg-gray-900 max-md:w-full! max-md:h-full flex flex-col">
         <div className="cursor-pointer" onClick={onClose}>
           <Badge
             className="absolute w-10 h-10 z-999 top-2 shadow-xl right-2"

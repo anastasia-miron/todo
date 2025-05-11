@@ -116,17 +116,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
       {isOpen && (
         <div
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            maxHeight: 200,
-            overflowY: "auto",
-            background: "white",
-            border: "1px solid #ccc",
-            zIndex: 10,
-          }}
+        className="absolute top-[100%] left-0 right-0 max-h-[200px] overflow-y-auto bg-white dark:bg-gray-800 border z-19"
+          
         >
           {isPlacePredictionsLoading ? (
             <div style={{ padding: 8 }}>Loading…</div>
@@ -136,11 +127,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
                 key={p.place_id}
                 onMouseDown={() => select(p.place_id, p.description)}
                 onMouseEnter={() => setHighlightIndex(i)}
-                style={{
-                  padding: "8px",
-                  background: i === highlightIndex ? "#eee" : "transparent",
-                  cursor: "pointer",
-                }}
+                className={`px-2 py-2 cursor-pointer ${
+                  i === highlightIndex ? "bg-gray-800" : ""
+                }`}
               >
                 {p.description}
               </div>

@@ -9,7 +9,7 @@ import useCurrentUser from "../hooks/useCurrentUser";
 
 
 const ReviewListPage: React.FC = () => {
-    const { trigger, mutate } = useRefreshTrigger();
+    const { trigger } = useRefreshTrigger();
     const { user } = useCurrentUser();
     const [reviews, setReviews] = useState<ReviewModel[]>([]);
     const [tab, setTab] = useState<'for_me' | 'by_me'>('for_me');
@@ -29,18 +29,6 @@ const ReviewListPage: React.FC = () => {
             }
         })();
     }, [trigger]);
-
-    const handleUpdate = (updatedReview: ReviewModel) => {
-        setReviews((prev) =>
-            prev.map((review) => (review.id === updatedReview.id ? updatedReview : review))
-        );
-        mutate();
-    };
-
-    const handleDelete = (id: string) => {
-        setReviews((prev) => prev.filter((review) => review.id !== id));
-        mutate();
-    };
 
     const list = useMemo(() => {
         return reviews.filter(review => {
@@ -69,7 +57,7 @@ const ReviewListPage: React.FC = () => {
                     By me
                 </button>
             </header>
-            <ReviewList reviews={list} onUpdate={handleUpdate} onDelete={handleDelete} />
+            <ReviewList reviews={list} />
         </div>
     );
 };

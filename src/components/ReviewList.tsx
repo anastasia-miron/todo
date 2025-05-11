@@ -6,12 +6,10 @@ import './ReviewList.css';
 
 interface Props {
     reviews: ReviewModel[];
-    onUpdate: (updatedReview: ReviewModel) => void;
-    onDelete: (id: string) => void;
 }
 
 const ReviewList: React.FC<Props> = (props) => {
-    const { reviews, onUpdate, onDelete } = props;
+    const { reviews } = props;
     return (
         <div className="review-list">
             {reviews.length > 0 ? (
@@ -19,8 +17,6 @@ const ReviewList: React.FC<Props> = (props) => {
                     <ReviewItem
                         key={review.id}
                         review={review}
-                        onUpdate={onUpdate}
-                        onDelete={onDelete}
                     />
                 ))
             ) : (
