@@ -104,7 +104,7 @@ const RequestItem: React.FC<Props> = (props) => {
             {request.description && <blockquote className="request-item__description">{request.description}</blockquote>}
             <div className="request-item__actors">
                 <div className="request-item__actor">
-                    <strong>Beneficiary:</strong>
+                    <strong>Beneficiar:</strong>
                     <div className="request-item__owner" onClick={() => handleOpenProfile(request.beneficiary.id)}>
                         <Avatar user={request.beneficiary} />
                         <span>{request.beneficiary.username}</span>
@@ -112,7 +112,7 @@ const RequestItem: React.FC<Props> = (props) => {
                 </div>
 
                 {request.volunteer && <div className="request-item__actor">
-                    <strong>Volunteer:</strong>
+                    <strong>Voluntar:</strong>
                     <div className="request-item__volunteer" onClick={() => handleOpenProfile(request.volunteer!.id)}>
                         <Avatar user={request.volunteer} />
                         <span>{request.volunteer.username}</span>
@@ -127,25 +127,25 @@ const RequestItem: React.FC<Props> = (props) => {
                 
                 <StatusBadge status={request.status} className="request-item__status" />
                 {!isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <span data-placement="left" data-tooltip={!user?.isVerified ? "You must be verified to accept a request!" : null}>
+                    <span data-placement="left" data-tooltip={!user?.isVerified ? "„Trebuie să fii verificat pentru a accepta o cerere!”" : null}>
                      <button 
                      aria-busy={isLoading}
                      onClick={() => setConfirmAccept(true)}
                      disabled={!user?.isVerified}>
-                     Accept
+                     Acceptă
                      </button>
                      </span>
                      )}
                 {isBeneficiary && request.status === RequestStatusEnum.OPEN && (
-                    <button aria-busy={isLoading} onClick={() => setConfirmCancel(true)} className="outline danger-btn">Cancel</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmCancel(true)} className="outline danger-btn">Anulează</button>
                 )}
                 {request.status === RequestStatusEnum.IN_PROGRESS && (
-                    <button aria-busy={isLoading} onClick={() => setConfirmReject(true)} className="outline danger-btn">Reject</button>
+                    <button aria-busy={isLoading} onClick={() => setConfirmReject(true)} className="outline danger-btn">Respinge</button>
                 )}
             </footer>
-            {confirmAccept && <ConfirmModal message="Are you sure?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}
-            {confirmReject && <ConfirmModal message="Are you sure?" onClose={() => setConfirmReject(false)} onConfirm={handleReject} open />}
-            {confirmCancel && <ConfirmModal message="Are you sure?" onClose={() => setConfirmCancel(false)} onConfirm={handleCancel} open />}
+            {confirmAccept && <ConfirmModal message="Confirmați această acțiune?" onClose={() => setConfirmAccept(false)} onConfirm={handleAccept} open />}
+            {confirmReject && <ConfirmModal message="Confirmați această acțiune?" onClose={() => setConfirmReject(false)} onConfirm={handleReject} open />}
+            {confirmCancel && <ConfirmModal message="Confirmați această acțiune?" onClose={() => setConfirmCancel(false)} onConfirm={handleCancel} open />}
         </article>
     );
 };

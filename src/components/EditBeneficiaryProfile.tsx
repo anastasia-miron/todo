@@ -26,7 +26,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
             <article>
                 <form onSubmit={handleSubmit}>
 
-                    <label htmlFor="profileImg">Profile Image URL</label>
+                    <label htmlFor="profileImg">Imagine Profil URL</label>
                     <input
                         id="profileImg"
                         type="url"
@@ -38,12 +38,12 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     {errors.profileImg && <small id="error-profile-img">{errors.profileImg}</small>}
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username">Nume utilizator</label>
                     <input
                         id="username"
                         type="text"
                         name="username"
-                        placeholder="Username"
+                        placeholder="Nume utilizator"
                         aria-invalid={errors.username ? "true" : "false"}
                         aria-describedby="error-username"
                         value={values.username ?? ''}
@@ -62,7 +62,7 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     {errors.email && <small id="error-email">{errors.email}</small>}
-                    <label htmlFor="phone">Phone</label>
+                    <label htmlFor="phone">Număr telefon</label>
                     <input
                         id="phone"
                         type="text"
@@ -74,12 +74,12 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                         onChange={handleChange}
                     />
                     {errors.phone && <small id="error-phone">{errors.phone}</small>}
-                    <label htmlFor="needs">Needs</label>
+                    <label htmlFor="needs">Necesități</label>
                     <input
                         id="needs"
                         type="text"
                         name="needs"
-                        placeholder="Needs"
+                        placeholder="Necesități"
                         aria-invalid={errors.needs ? "true" : "false"}
                         aria-describedby="error-needs"
                         value={values.needs ?? ''}
@@ -87,12 +87,12 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                     />
                     {errors.needs && <small id="error-needs">{errors.needs}</small>}
 
-                    <label htmlFor="location">Location</label>
+                    <label htmlFor="location">Locație</label>
                     <input
                         id="location"
                         type="text"
                         name="location"
-                        placeholder="Location"
+                        placeholder="Locație"
                         aria-invalid={errors.location ? "true" : "false"}
                         aria-describedby="error-location"
                         value={values.location ?? ''}
@@ -106,14 +106,14 @@ const EditBeneficiaryProfile: React.FC<Props> = (props) => {
                             disabled={!dirty || !isValid}
                             type="submit"
                         >
-                            Save
+                            Salvează
                         </button>
                         <button
                             type="button"
                             onClick={onClose}
                             className="outline contrast"
                         >
-                            Close
+                            Închide
                         </button>
                     </footer>
                 </form>

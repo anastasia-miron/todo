@@ -20,12 +20,12 @@ const ConfirmModal: React.FC<Props> = (props) => {
                     <button type="button" className="confirm-modal__close" onClick={onClose}>
                         <X size={20} />
                     </button>
-                    <h2>Confirm</h2>
+                    <h2>Confirmare</h2>
                 </header>
                 <p>{message}</p>
                 <footer>
-                <button onClick={onClose} className="outline">No</button>
-                <button onClick={onConfirm}>Yes</button>
+                <button onClick={onClose} className="outline">Nu</button>
+                <button onClick={onConfirm}>Da</button>
                    
                 </footer>
             </article>

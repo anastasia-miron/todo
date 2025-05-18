@@ -9,8 +9,6 @@ import { toast } from 'react-toastify';
 import useAbortSignal from "../hooks/useAbortSignal";
 import useCurrentUser from "../hooks/useCurrentUser";
 
-
-
 const DEFAULT_VALUES = {
     username: '',
     email: '',
@@ -34,9 +32,9 @@ const SignUpPage: React.FC = () => {
                 return toast.error(response.message);
             }
             updateUser(response.data);
-            toast.success('Account created successfully!');
+            toast.success('Cont creat cu succes!');
             await navigate('/app/user-type', { replace: true });
- }
+        }
     });
 
     if (user) {
@@ -51,32 +49,34 @@ const SignUpPage: React.FC = () => {
                     <Logo className="page__logo" onClick={() => navigate('/')} />
                     <div className="btn-placeholder" />
                 </div>
-                <h1>Sign Up</h1>
+                <h1>Înregistrare</h1>
                 <div>
                     <fieldset>
-                        <label htmlFor="username">Username</label>
+                        <label htmlFor="username">Nume de utilizator</label>
                         <input
                             type="text"
                             name="username"
-                            placeholder="Username"
+                            placeholder="Nume de utilizator"
                             aria-invalid={errors.username ? "true" : "false"}
                             aria-describedby="error-username"
                             value={values.username}
                             onChange={(ev) => setFieldValue('username', ev.target.value)}
                         />
                         {errors.username && <small id="error-username">{errors.username}</small>}
+
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             name="email"
                             aria-invalid={errors.email ? "true" : "false"}
                             aria-describedby="error-email"
-                            placeholder="email@example.com"
+                            placeholder="email@exemplu.com"
                             value={values.email}
                             onChange={(ev) => setFieldValue('email', ev.target.value)}
                         />
-                       {errors.email && <small id="error-email">{errors.email}</small>}
-                        <label htmlFor="phone">Phone</label>
+                        {errors.email && <small id="error-email">{errors.email}</small>}
+
+                        <label htmlFor="phone">Telefon</label>
                         <input
                             type="text"
                             name="phone"
@@ -87,31 +87,34 @@ const SignUpPage: React.FC = () => {
                             onChange={(ev) => setFieldValue('phone', ev.target.value)}
                         />
                         {errors.phone && <small id="error-phone">{errors.phone}</small>}
-                        <label htmlFor="password">Password</label>
+
+                        <label htmlFor="password">Parolă</label>
                         <input
                             type="password"
                             name="password"
-                            aria-invalid={errors.phone ? "true" : "false"}
-                            aria-describedby="error-phone"
-                            placeholder="Password"
+                            aria-invalid={errors.password ? "true" : "false"}
+                            aria-describedby="error-password"
+                            placeholder="Parolă"
                             value={values.password}
                             onChange={(ev) => setFieldValue('password', ev.target.value)}
                         />
                         {errors.password && <small id="error-password">{errors.password}</small>}
-                        <label htmlFor="repeatPassword">Repeat Password</label>
+
+                        <label htmlFor="repeatPassword">Repetă parola</label>
                         <input
                             type="password"
                             name="repeatPassword"
-                            placeholder="Repeat Password"
+                            placeholder="Repetă parola"
                             value={values.repeatPassword}
                             onChange={(ev) => setFieldValue('repeatPassword', ev.target.value)}
                         />
-                            {errors.repeatPassword && touched.repeatPassword && (
-                            <div className="error">{errors.repeatPassword}</div> )}
+                        {errors.repeatPassword && touched.repeatPassword && (
+                            <div className="error">{errors.repeatPassword}</div>
+                        )}
                     </fieldset>
                 </div>
                 <div className="signup_page__actions">
-                <button type="submit">Register</button>
+                    <button type="submit">Înregistrează-te</button>
                 </div>
             </form>
         </div>

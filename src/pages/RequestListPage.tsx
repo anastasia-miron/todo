@@ -76,23 +76,23 @@ const RequestListPage: React.FC = () => {
                     onClick={() => setTab('list')}
                     aria-current={tab === 'list'}
                 >
-                    Requests
+                Cereri
                 </button>
                     <button
                         onClick={() => setTab('my')}
                         aria-current={tab === 'my'}
                     >
-                        My Requests
+                        Cereri acceptate
                     </button></> :
-                    <h2>My Requests</h2>}
+                    <h2>Cereri acceptate</h2>}
             </header>
             <RequestList data={filteredList} isLoading={isLoading} onChange={handleChanges} />
             {user?.type === UserTypeEnum.BENEFICIARY && (
-                <footer className="request-list__actions" data-tooltip={user?.isVerified ? null : "You must be verified to add a request!"}>
+                <footer className="request-list__actions" data-tooltip={user?.isVerified ? null : "„Trebuie să fii verificat pentru a adăuga o cerere!”t!"}>
                     <button
                         onClick={() => setOpenModal(true)}
                         disabled={!user?.isVerified}>
-                        Add Request
+                        Adaugă Cerere
                     </button>
                 </footer>
             )}

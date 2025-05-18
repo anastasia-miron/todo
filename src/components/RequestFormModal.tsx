@@ -146,7 +146,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
       },
       (err) => {
         console.error(err);
-        alert("Unable to retrieve your location.");
+        alert("Eroare la obținerea locației.");
       }
     );
   };
@@ -177,9 +177,9 @@ const RequestFormModal: React.FC<Props> = (props) => {
           </div>
           {volutersByRegion && (
             <div className="absolute bottom-5 h-10 p-2 left-7 rounded-full text-white z-999 bg-[#4485e6] opacity-90">
-              You have {volutersByRegion.counter} volunteer
-              {volutersByRegion.counter !== 1 ? "s" : ""} available in the{" "}
-              {volutersByRegion.region} region.
+              Aveți {volutersByRegion.counter} voluntar
+              {volutersByRegion.counter !== 1 ? "s" : ""} disponibil în regiunea{" "}
+              {volutersByRegion.region}
             </div>
           )}
         </div>
@@ -188,7 +188,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
             <input
               name="title"
               type="text"
-              placeholder="Title"
+              placeholder="Titlu"
               aria-invalid={errors.title ? "true" : "false"}
               aria-describedby="error-title"
               value={values.title}
@@ -198,7 +198,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
             {errors.title && <small id="error-title">{errors.title}</small>}
             <textarea
               name="description"
-              placeholder="Description"
+              placeholder="Descriere"
               aria-invalid={errors.description ? "true" : "false"}
               aria-describedby="error-description"
               value={values.description}
@@ -218,9 +218,9 @@ const RequestFormModal: React.FC<Props> = (props) => {
               value={values.urgency}
               onChange={handleChange}
             >
-              <option value={RequestUrgencyEnum.LOW}>Low</option>
-              <option value={RequestUrgencyEnum.MEDIUM}>Medium</option>
-              <option value={RequestUrgencyEnum.HIGH}>High</option>
+              <option value={RequestUrgencyEnum.LOW}>Urgență scăzută</option>
+              <option value={RequestUrgencyEnum.MEDIUM}>Urgență medie</option>
+              <option value={RequestUrgencyEnum.HIGH}>Urgență ridicată</option>
             </select>
             <footer>
               <button
@@ -228,7 +228,7 @@ const RequestFormModal: React.FC<Props> = (props) => {
                 disabled={!dirty || !isValid}
                 aria-busy={isSubmitting}
               >
-                Save
+                Salvează
               </button>
             </footer>
           </form>

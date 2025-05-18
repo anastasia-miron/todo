@@ -48,18 +48,18 @@ const SignInPage: React.FC = () => {
                     <Logo className="page__logo" onClick={() => navigate('/')} />
                     <div className="btn-placeholder" />
                 </div>
-                <h1>Sign In</h1>
+                <h1>Logare</h1>
                 <div>
                     <fieldset>
                         <label htmlFor="email">Email</label>
                         <input
                             type="email"
                             name="email"
-                            placeholder="email@example.com"
+                            placeholder="email@exemplu.com"
                             value={values.email}
                             onChange={(ev) => setFieldValue('email', ev.target.value)}
                         />
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Parolă</label>
                         <input
                             type="password"
                             name="password"
@@ -67,17 +67,17 @@ const SignInPage: React.FC = () => {
                             value={values.password}
                             onChange={(ev) => setFieldValue('password', ev.target.value)}
                         />
-                    <Link className="forgot-password" to="/password-recovery">
-                            Forgot your password?
+                        <Link className="forgot-password" to="/password-recovery">
+                            Ai uitat parola?
                         </Link>
                     </fieldset>
                 </div>
                 <div className="signin_page__actions">
-                    <button type="submit" disabled={!dirty || !isValid}>Login</button>
+                    <button type="submit" disabled={!dirty || !isValid}>Logare</button>
                 </div>
             </form>
         </div>
     );
 }
 
-export default SignInPage
+export default SignInPage;

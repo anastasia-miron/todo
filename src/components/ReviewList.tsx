@@ -22,7 +22,7 @@ const ReviewList: React.FC<Props> = (props) => {
             ) : (
                 <div className="review-list__no-results">
                     <img src="/no-results.svg" alt="No reviews" />
-                    <h3>No reviews yet</h3>
+                    <h3>Nu sunt recenzii diponibile</h3>
                 </div>
             )}
         </div>

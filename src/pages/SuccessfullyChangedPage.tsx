@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router";
 import Logo from "../components/Logo";
-import { ChevronLeft } from "lucide-react";
-import { CircleCheckBig } from "lucide-react";
+import { ChevronLeft, CircleCheckBig } from "lucide-react";
 import './SuccessfullyChangedPage.css'
 
 const SuccessfullyChangedPage: React.FC = () => {
@@ -17,18 +16,17 @@ const SuccessfullyChangedPage: React.FC = () => {
                     <div className="btn-placeholder" />
                 </div>
             </form>
-           <article>
+            <article>
                 <div className="successfully-changed-page">
-                <CircleCheckBig className="successfully-changed-icon" />
-                <h1 className="successfully-changed-title"> Password Updated Successfully!</h1>
-                <p className="successfully-changed-text">
-                    Go back to the <Link className="successfully-changed-link" to="/sign-in">sign in</Link> page.
-                </p>
-          </div>
-          </article>
+                    <CircleCheckBig className="successfully-changed-icon" />
+                    <h1 className="successfully-changed-title">Parolă actualizată cu succes!</h1>
+                    <p className="successfully-changed-text">
+                        Întoarce-te la pagina de <Link className="successfully-changed-link" to="/sign-in">logare</Link>.
+                    </p>
+                </div>
+            </article>
         </div>
     );
 };
 
 export default SuccessfullyChangedPage;
-

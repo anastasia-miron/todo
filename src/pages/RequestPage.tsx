@@ -59,7 +59,7 @@ const RequestPage: React.FC = () => {
   }
 
   if (!request) {
-    return <article>Server Error</article>;
+    return <article>Eroare Serverr</article>;
   }
 
   const handleAccept = async () => {
@@ -228,17 +228,17 @@ const RequestPage: React.FC = () => {
         )}
         <ul className="request-page__details">
           <li>
-            <b>Location:</b> {request.location.address}
+            <b>Locație:</b> {request.location.address}
           </li>
           <li>
-            <b>Urgency:</b> <UrgencyBadge urgency={request.urgency} />
+            <b>Urgență:</b> <UrgencyBadge urgency={request.urgency} />
           </li>
           <li>
-            <b>Status:</b> <StatusBadge status={request.status} />
+            <b>Statut:</b> <StatusBadge status={request.status} />
           </li>
           {request.volunteer && (
             <li>
-              <b>Volunteer:</b>
+              <b>Voluntar:</b>
               <div
                 className="request-page__volunteer"
                 onClick={() => handleOpenProfile(request.volunteer!.id)}
@@ -259,7 +259,7 @@ const RequestPage: React.FC = () => {
               data-placement="left"
               data-tooltip={
                 !user?.isVerified
-                  ? "You must be verified to accept a request!"
+                  ? "Trebuie să fii verificat pentru a accepta o cerere!"
                   : null
               }
             >
@@ -268,7 +268,7 @@ const RequestPage: React.FC = () => {
                 onClick={() => setConfirmAccept(true)}
                 disabled={!user?.isVerified}
               >
-                Accept
+                Acceptă
               </button>
             </span>
           )}
@@ -277,7 +277,7 @@ const RequestPage: React.FC = () => {
               onClick={() => setConfirmCancel(true)}
               className="outline danger-btn"
             >
-              Cancel
+              Anulează
             </button>
           )}
           {!isBeneficiary &&
@@ -289,11 +289,11 @@ const RequestPage: React.FC = () => {
               onClick={() => setConfirmReject(true)}
               className="outline danger-btn"
             >
-              Reject
+              Respinge
             </button>
           )}
           {request.status === RequestStatusEnum.DONE && (
-            <button onClick={() => setOpenReview(true)}>Review</button>
+            <button onClick={() => setOpenReview(true)}>Recenzie</button>
           )}
         </footer>
         {openModal && (
@@ -314,7 +314,7 @@ const RequestPage: React.FC = () => {
         )}
         {confirmAccept && (
           <ConfirmModal
-            message="Are you sure?"
+            message="Confirmați această acțiune?"
             onClose={() => setConfirmAccept(false)}
             onConfirm={handleAccept}
             open
@@ -322,7 +322,7 @@ const RequestPage: React.FC = () => {
         )}
         {confirmReject && (
           <ConfirmModal
-            message="Are you sure?"
+            message="Confirmați această acțiune?"
             onClose={() => setConfirmReject(false)}
             onConfirm={handleReject}
             open
@@ -330,7 +330,7 @@ const RequestPage: React.FC = () => {
         )}
         {confirmCancel && (
           <ConfirmModal
-            message="Are you sure?"
+            message="Confirmați această acțiune?"
             onClose={() => setConfirmCancel(false)}
             onConfirm={handleCancel}
             open

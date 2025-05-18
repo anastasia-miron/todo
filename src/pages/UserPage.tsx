@@ -81,7 +81,7 @@ const UserPage: React.FC = () => {
   }
 
   if (!profile) {
-    return <article>Server Error</article>;
+    return <article>Eroare server</article>;
   }
 
   return (
@@ -94,11 +94,11 @@ const UserPage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <h2 className="text-xl m-0! font-semibold">{profile.username}</h2>
                 <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-800 capitalize">
-                  {profile.type}
+                  {profile.type === "volunteer" ? "Voluntar" : profile.type === "beneficiary" ? "Beneficiar" : profile.type}
                 </span>
                 <span
                   className="flex items-center"
-                  title={`${profile.isVerified ? "Verified" : "Not Verified"}`}
+                  title={`${profile.isVerified ? "Verificat" : "Neverificat"}`}
                 >
                   <span
                     className={`w-4 h-4 ${profile.isVerified ? " bg-green-500" : "bg-gray-500"
@@ -119,7 +119,11 @@ const UserPage: React.FC = () => {
                   </span>
                 </span>
               </div>
+              <div className="flex flex-col items-center gap-2">              
+              <div className="flex items-center gap-2">
               <Rating value={profile.rating} readOnly />
+              </div>
+              </div>
             </div>
           </div>
 
@@ -128,7 +132,7 @@ const UserPage: React.FC = () => {
               <div className="flex items-center gap-2 text-gray-600">
                 <PhoneIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                 <span>
-                  <b>Phone: </b>
+                  <b>Telefon: </b>
                   <a href={`tel:${profile.phone}`}>{profile.phone}</a>
                 </span>
               </div>
@@ -145,7 +149,7 @@ const UserPage: React.FC = () => {
                 <div className="flex items-center gap-2 text-gray-600">
                   <CalendarIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                   <span>
-                    <b>Availability: </b>{profile.availability}
+                    <b>Disponibilitate: </b>{profile.availability}
                   </span>
                 </div>
               )}
@@ -154,7 +158,7 @@ const UserPage: React.FC = () => {
                 <div className="flex items-center gap-2 text-gray-600">
                   <BriefcaseIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                   <span>
-                    <b>Skills:</b> {profile.skills}
+                    <b>Competențe:</b> {profile.skills}
                   </span>
                 </div>
               )}
@@ -163,7 +167,7 @@ const UserPage: React.FC = () => {
                 <div className="flex items-center gap-2 text-gray-600">
                   <BriefcaseIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                   <span>
-                    <b>Needs:</b> {profile.needs}
+                    <b>Nevoi:</b> {profile.needs}
                   </span>
                 </div>
               )}
@@ -172,12 +176,12 @@ const UserPage: React.FC = () => {
                 <div className="flex items-center gap-2 text-gray-600">
                   <MapPinIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                   <span>
-                    <b>Location:</b> {profile.location}
+                    <b>Locație:</b> {profile.location}
                   </span>
                 </div>
               )}
 
-              {/* Regions section - only show for volunteers */}
+              {/* Secțiunea Regiuni - doar pentru voluntari */}
               {profile.type === "volunteer" &&
                 profile.regions &&
                 profile.regions.length > 0 && (
@@ -185,14 +189,14 @@ const UserPage: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-gray-600">
                         <MapIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                        <b>Available Regions:</b>
+                        <b>Regiuni disponibile:</b>
                       </div>
                       <div className="flex gap-1">
                         <button
                           onClick={toggleMap}
                           className="p-1 text-xs text-gray-600 hover:bg-gray-100 rounded"
                         >
-                          {showMap ? "Hide Map" : "Show Map"}
+                          {showMap ? "Ascunde harta" : "Arată harta"}
                         </button>
                       </div>
                     </div>
@@ -213,7 +217,7 @@ const UserPage: React.FC = () => {
                           onClick={toggleRegionsDisplay}
                           className="px-2 py-0.5 text-xs cursor-pointer hover:bg-gray-400 rounded-full bg-gray-100 text-gray-700"
                         >
-                          +{profile.regions.length - 3} more
+                          +{profile.regions.length - 3} mai multe
                         </span>
                       )}
                       {showAllRegions && (
@@ -245,11 +249,9 @@ const UserPage: React.FC = () => {
 
       {profile.reviews.length > 0 && (
         <div className="user__reviews">
-          <h2>User Reviews</h2>
+          <h2>Recenzii utilizator</h2>
           <ReviewList
             reviews={profile.reviews}
-            onDelete={mutate}
-            onUpdate={mutate}
           />
         </div>
       )}

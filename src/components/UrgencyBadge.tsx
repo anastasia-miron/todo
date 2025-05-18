@@ -8,9 +8,9 @@ interface Props {
 }
 
 const textMap: Record<RequestUrgencyEnum, string> = {
-    [RequestUrgencyEnum.HIGH]: 'High',
-    [RequestUrgencyEnum.MEDIUM]: 'Medium',
-    [RequestUrgencyEnum.LOW]: 'Low',
+    [RequestUrgencyEnum.HIGH]: 'Ridicată',
+    [RequestUrgencyEnum.MEDIUM]: 'Medie',
+    [RequestUrgencyEnum.LOW]: 'Scăzută',
 
 }
 const UrgencyBadge: React.FC<Props> = (props) => {

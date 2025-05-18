@@ -5,3 +5,16 @@
     display: flex;
     flex-direction: column;
 }
+
+header[role="group"] {
+    display: flex;
+    gap: 8px; /* spațiu între butoane */
+  }
+  
+  header[role="group"] button {
+    flex: 1; /* toate butoanele vor avea lățimi egale */
+    text-align: center;
+    padding: 8px 12px;
+    min-width: 150px; /* sau altă valoare fixă pentru lățime minimă */
+  }
+  

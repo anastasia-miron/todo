@@ -100,7 +100,7 @@ const RequestMessage: React.FC<Props> = (props) => {
               required
               value={content}
               onChange={(ev) => setContent(ev.target.value)}
-              placeholder="Type a message..."
+              placeholder="Tastează un mesaj..."
             />
             <button
               type="submit"

@@ -69,14 +69,14 @@ export function RegionSelectModal({
       <article className="z-[9992]!">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-600">
-              Click on regions in the map to select or deselect them.
+          <p className="text-sm text-gray-600">
+        Fă clic pe regiunile de pe hartă <br /> pentru a le selecta sau deselecta.
             </p>
             <button
               onClick={handleSelectAll}
               className="px-3 py-1 text-xs bg-blue-50 text-blue-700 rounded-md hover:bg-blue-100 transition-colors"
             >
-              {areAllSelected ? "Deselect All" : "Select All"}
+              {areAllSelected ? "Deselectează toate" : "Selectează toate"}
             </button>
           </div>
 
@@ -91,11 +91,11 @@ export function RegionSelectModal({
 
           <div className="mt-4">
             <h3 className="text-sm font-medium mb-2">
-              Selected Regions ({localSelectedRegions.length})
+              Regiuni selectate ({localSelectedRegions.length})
             </h3>
             {localSelectedRegions.length === 0 ? (
               <p className="text-sm text-gray-500 italic">
-                No regions selected. Click on the map to select regions.
+                Nu a fost selectată nicio regiune. Apasă pe hartă pentru a selecta.
               </p>
             ) : (
               <div className="flex flex-wrap gap-2 max-h-[150px] overflow-y-auto p-1">
@@ -113,7 +113,7 @@ export function RegionSelectModal({
                       onClick={() => setShowAllSelected(true)}
                       className="px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300"
                     >
-                      +{localSelectedRegions.length - 12} more
+                      +{localSelectedRegions.length - 12} altele
                     </span>
                   )}
                 {showAllSelected && (
@@ -128,7 +128,7 @@ export function RegionSelectModal({
             )}
             {localSelectedRegions.length > 0 && (
               <p className="text-xs text-gray-500 mt-2">
-                Click on a region to set it as your primary region.
+                Selectează o regiune pentru a o stabili ca principală.
               </p>
             )}
           </div>
@@ -138,13 +138,13 @@ export function RegionSelectModal({
             onClick={onClose}
             className="w-full py-2 px-4 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors"
           >
-            Cancel
+              Închide
           </button>
           <button
             onClick={handleSave}
             className="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
           >
-            Save Regions
+            Salvează regiuni
           </button>
         </div>
       </article>

@@ -31,7 +31,7 @@ const ReviewModal: React.FC<Props> = (props) => {
                         <button type="button" className="review-modal__close" onClick={onClose}>
                             <X size={20} />
                         </button>
-                        <h2>Leave a Review</h2>
+                        <h2>Lăsați o recenzie</h2>
                     </header>
 
                     <div className="review-modal__content">
@@ -44,20 +44,20 @@ const ReviewModal: React.FC<Props> = (props) => {
                             />
                         </div>
                         <div>
-                            <label >Feedback:</label>
+                            <label >Recenzie:</label>
                             <textarea
                                 name="comment"
                                 value={values.comment}
                                 onChange={handleChange}
-                                placeholder="Write your review here..."
+                                placeholder="Lasă o recenzie aici..."
                             />
                         </div>
                     </div>
 
                     <footer className="review-modal__actions">
-                        {onSkip && <button onClick={onSkip} className="outline">Skip</button>}
+                        {onSkip && <button onClick={onSkip} className="outline">Ignoră</button>}
                         <button type="submit" disabled={!isValid || !dirty} aria-busy={isSubmitting}>
-                            Done
+                            Finalizează
                         </button>
                     </footer>
                 </article>

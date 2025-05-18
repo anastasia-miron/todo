@@ -20,7 +20,6 @@ const SettingsPage: React.FC = () => {
         "/push/getIsNotificationEnabled"
       );
 
-      console.log("test");
       if (response.success) {
         setEnabled(response.data.allowNotifications);
       }
@@ -31,28 +30,28 @@ const SettingsPage: React.FC = () => {
 
   const handleUpdatePassword = async () => {
     if (!newPassword.trim()) {
-      toast.error("Please enter a new password.");
+      toast.error("Vă rugăm să introduceți o parolă nouă.");
       return;
     }
     const response = await apiService.post("/profile/update-password", {
       newPassword,
     });
     if (!response.success) {
-      toast.error("Failed to update password. Please try again.");
+      toast.error("Actualizarea parolei a eșuat. Vă rugăm să încercați din nou.");
       return;
     }
 
-    toast.success("Password updated successfully.");
+    toast.success("Parola a fost actualizată cu succes.");
     setNewPassword("");
   };
 
   const handleDeleteAccount = async () => {
     const response = await apiService.delete("/profile");
     if (!response.success) {
-      toast.error("Failed to delete account. Please try again.");
+      toast.error("Ștergerea contului a eșuat. Vă rugăm să încercați din nou.");
       return;
     }
-    toast.success("Your account has been deleted.");
+    toast.success("Contul dvs. a fost șters.");
     navigate("/"); // Redirecționează la pagina principală
   };
 
@@ -64,21 +63,21 @@ const SettingsPage: React.FC = () => {
     setEnabled(!enabled);
 
     if (!response.success) {
-      toast.error("Failed to update notification settings. Please try again.");
+      toast.error("Actualizarea setărilor notificărilor a eșuat. Vă rugăm să încercați din nou.");
       return;
     }
 
-    toast.success("Notification settings updated successfully.");
+    toast.success("Setările notificărilor au fost actualizate cu succes.");
   };
 
   return (
     <div>
-      <h2>Settings</h2>
+      <h2>Setări</h2>
 
       <article className="relative flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg shadow">
         <div className="flex items-center space-x-2">
           <Bell className="text-gray-600" size={20} />
-          <span className="font-medium text-gray-700">Allow Notifications</span>
+          <span className="font-medium text-gray-700">Permite notificările</span>
         </div>
 
         <span
@@ -96,8 +95,8 @@ const SettingsPage: React.FC = () => {
       </article>
       <NotificationPermissionWarning />
       <article className="user-settings">
-        <header>Change Password</header>
-        <label htmlFor="password">New password</label>
+        <header>Schimbă parola</header>
+        <label htmlFor="password">Parolă nouă</label>
         <input
           type="password"
           name="password"
@@ -106,22 +105,22 @@ const SettingsPage: React.FC = () => {
           onChange={(e) => setNewPassword(e.target.value)}
         />
         <footer>
-          <button onClick={handleUpdatePassword}>Update</button>
+          <button onClick={handleUpdatePassword}>Actualizează</button>
         </footer>
       </article>
       <article className="user-settings">
-        <header>Delete Account</header>
-        <p>You will no longer be able to sign in to your account</p>
+        <header>Șterge contul</header>
+        <p>Nu veți mai putea să vă autentificați cu acest cont.</p>
         <footer>
           <button className="danger-btn" onClick={() => setConfirmDelete(true)}>
-            Delete
+            Șterge
           </button>
         </footer>
       </article>
 
       {confirmDelete && (
         <ConfirmModal
-          message="Are you sure you want to delete your account?"
+          message="Sunteți sigur că doriți să vă ștergeți contul?"
           onClose={() => setConfirmDelete(false)}
           onConfirm={handleDeleteAccount}
           open

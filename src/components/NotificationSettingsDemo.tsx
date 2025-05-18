@@ -82,7 +82,7 @@ export default function NotificationSettingsDemo() {
                     className="absolute right-0 mt-2 w-36 bg-white dark:bg-gray-900 shadow-lg rounded-md overflow-hidden p-1 z-10"
                   >
                     <li className="px-3 py-2 hover:bg-gray-100 rounded">
-                      Profile
+                      Profil
                     </li>
                     <li
                       ref={settingsRef}
@@ -92,16 +92,16 @@ export default function NotificationSettingsDemo() {
                       tabIndex={-1}
                     >
                       <span className="absolute -top-1 left-1 w-6 h-6 bg-yellow-400 rounded-full animate-ping"></span>
-                      Settings
+                      Setări
                     </li>
                     <li className="px-3 py-2 hover:bg-gray-100 rounded">
-                      History
+                      Istoric
                     </li>
                     <li className="px-3 py-2 hover:bg-gray-100 rounded">
-                      Reviews
+                      Recenzii
                     </li>
                     <li className="px-3 py-2 hover:bg-gray-100 rounded">
-                      Logout
+                        Delogare
                     </li>
                   </ul>
                 </details>
@@ -112,13 +112,13 @@ export default function NotificationSettingsDemo() {
           <div className="flex-1 bg-white dark:bg-gray-900 p-4 relative">
             {step > 3 && (
               <div>
-                <h2>Settings</h2>
+                <h2>Setări</h2>
                 <article className="user-settings">
                   <div className="relative flex items-center justify-between p-4 bg-white dark:bg-gray-900 rounded-lg shadow">
                     <div className="flex items-center space-x-2">
                       <Bell className="text-gray-600" size={20} />
                       <span className="font-medium text-gray-700">
-                        Allow Notifications
+                        Activează notificările
                       </span>
                     </div>
 
@@ -151,16 +151,16 @@ export default function NotificationSettingsDemo() {
           <div className="text-sm text-gray-600">
             Step {step + 1} of 6:{" "}
             {step === 0
-              ? "App loaded"
-              : step === 1
-              ? "Click notification bell"
-              : step === 2
-              ? "Open settings menu"
-              : step === 3
-              ? "Click notification settings"
-              : step === 4
-              ? "Enable notifications"
-              : "Notifications enabled"}
+            ? "Aplicația a fost încărcată"
+             : step === 1
+            ? "Apasă pe clopoțelul de notificări"
+            : step === 2
+            ? "Deschide meniul Setări"
+            : step === 3
+           ? "Selectează setările de notificări"
+           : step === 4
+           ? "Activează notificările"
+          : "Notificările sunt activate"}
           </div>
 
           <div className="flex items-center space-x-2">
@@ -178,7 +178,7 @@ export default function NotificationSettingsDemo() {
                   playing ? "bg-gray-500" : "bg-blue-500"
                 } text-white rounded hover:opacity-90 text-sm`}
               >
-                {playing ? "Pause" : "Play"}
+                {playing ? "Pauză" : "start"}
               </button>
             )}
           </div>

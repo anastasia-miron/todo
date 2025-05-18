@@ -127,8 +127,8 @@ export function MultiSelect<T extends { id: string; name: string }>({
             : selectedValues.length === 1
             ? selectedValues[0].name
             : areAllSelected
-            ? "All Regions selected"
-            : `${selectedValues.length} regions selected`}
+            ? "Toate regiunile selectate"
+            : `${selectedValues.length} regiuni selectate`}
         </span>
         {isOpen ? (
           <ChevronUpIcon className="h-4 w-4" />
@@ -148,7 +148,7 @@ export function MultiSelect<T extends { id: string; name: string }>({
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search regions..."
+                placeholder="Caută regiune..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-8! pr-2! py-1! border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -161,7 +161,7 @@ export function MultiSelect<T extends { id: string; name: string }>({
               onClick={handleSelectAll}
               className="w-full text-left px-3 py-2 hover:bg-gray-100 text-sm font-medium text-blue-600"
             >
-              {areAllSelected ? "Deselect All" : "Select All"}
+              {areAllSelected ? "Deselectează toate" : "Selectează toate"}
             </button>
           </div>
 

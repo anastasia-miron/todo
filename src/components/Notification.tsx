@@ -23,7 +23,7 @@ export default function NotificationComponent(props: {
       <Link
         to={"notification"}
         className="relative block p-2 rounded-full hover:bg-gray-100 transition-colors"
-        aria-label={`${unreadCount} unread notifications`}
+        aria-label={`${unreadCount} notificări necitite`}
       >
         <Bell className="h-6 w-6" />
         {unreadCount > 0 && (

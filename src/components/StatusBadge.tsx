@@ -9,10 +9,11 @@ interface Props {
 }
 
 const textMap: Record<RequestStatusEnum, string> = {
-    [RequestStatusEnum.CANCELED]: 'Canceled',
-    [RequestStatusEnum.DONE]: 'Done',
-    [RequestStatusEnum.IN_PROGRESS]: 'In progress',
-    [RequestStatusEnum.OPEN]: 'Open',
+    [RequestStatusEnum.CANCELED]: 'Anulat',
+    [RequestStatusEnum.DONE]: 'Finalizat',
+    [RequestStatusEnum.IN_PROGRESS]: 'În progres',
+    [RequestStatusEnum.OPEN]: 'Disponibil',
+    [RequestStatusEnum.REJECTED]: 'Respins',
 
 }
 const StatusBadge: React.FC<Props> = (props) => {

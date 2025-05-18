@@ -14,11 +14,11 @@ interface Props {
   onSubmit: (data: ProfileModel) => Promise<unknown>;
 }
 const AVAILABILITY_OPTIONS = [
-  "Full-time",
-  "Evenings",
-  "Weekends",
-  "Flexible",
-  "24/24",
+  "Normă întreagă",        // Full-time
+  "Seara",                  // Evenings
+  "Weekenduri",             // Weekends
+  "Program flexibil",       // Flexible
+  "Disponibil 24/24",       // 24/24
 ];
 
 const EditVolunteerProfile: React.FC<Props> = (props) => {
@@ -68,7 +68,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
     <dialog open className="z-[9991]!">
       <article className="z-[9991]!">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="profileImg">Profile Image URL</label>
+          <label htmlFor="profileImg">Imagine Profil URL</label>
           <input
             id="profileImg"
             type="url"
@@ -82,12 +82,12 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
           {errors.profileImg && (
             <small id="error-profile-img">{errors.profileImg}</small>
           )}
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Nume utilizator</label>
           <input
             id="username"
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="Nume utilizator"
             aria-invalid={errors.username ? "true" : "false"}
             aria-describedby="error-username"
             value={values.username ?? ""}
@@ -109,7 +109,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
             onChange={handleChange}
           />
           {errors.email && <small id="error-email">{errors.email}</small>}
-          <label htmlFor="phone">Phone</label>
+          <label htmlFor="phone">Număr telefon</label>
           <input
             id="phone"
             type="text"
@@ -121,20 +121,20 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
             onChange={handleChange}
           />
           {errors.phone && <small id="error-phone">{errors.phone}</small>}
-          <label htmlFor="skills">Skills</label>
+          <label htmlFor="skills">Aptitudini</label>
           <input
             id="skills"
             type="text"
             name="skills"
             aria-invalid={errors.skills ? "true" : "false"}
             aria-describedby="error-skills"
-            placeholder="Skills"
+            placeholder="Aptitudini"
             value={values.skills ?? ""}
             onChange={handleChange}
           />
           {errors.skills && <small id="error-skills">{errors.skills}</small>}
 
-          <label htmlFor="availability">Availability</label>
+          <label htmlFor="availability">Disponibilitate</label>
           <select
             id="availability"
             name="availability"
@@ -146,7 +146,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
             {errors.availability && (
               <small id="error-availability">{errors.availability}</small>
             )}
-            <option value="">Select availability</option>
+            <option value="">Alege disponibilitate</option>
             {AVAILABILITY_OPTIONS.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -156,14 +156,14 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
-              Regions
+              Regiuni
             </label>
             <div className="space-y-2">
               <MultiSelect<RegionsModel>
                 options={availableRegions}
                 selectedValues={selectedRegions}
                 onChange={setSelectedRegions}
-                placeholder="Select regions"
+                placeholder="Selectați regiunile"
               />
 
               <button
@@ -172,13 +172,13 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
                 className="w-full flex items-center justify-center gap-2 py-2 px-4 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
               >
                 <MapIcon className="w-4 h-4" />
-                <span>Select Regions on Map</span>
+                <span>Selectați regiunile pe hartă</span>
               </button>
 
               {displayedRegions.length > 0 && (
                 <div className="mt-2">
                   <div className="text-sm font-medium mb-1">
-                    Selected Regions:
+                    Regiuni selectate:
                   </div>
                   <div className="flex flex-wrap gap-2 max-h-[100px] overflow-y-auto p-1">
                     {displayedRegions.map((region) => (
@@ -194,7 +194,7 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
                         onClick={() => setShowAllSelected(true)}
                         className="px-2 py-1 text-xs rounded-md bg-gray-200 text-gray-700 hover:bg-gray-300"
                       >
-                        +{selectedRegions.length - 12} more
+                        +{selectedRegions.length - 12} altele
                       </span>
                     )}
                     {showAllSelected && (
@@ -217,14 +217,14 @@ const EditVolunteerProfile: React.FC<Props> = (props) => {
               disabled={!dirty || !isValid}
               type="submit"
             >
-              Save
+              Salvează
             </button>
             <button
               type="button"
               onClick={onClose}
               className="outline contrast"
             >
-              Close
+              Închide
             </button>
           </footer>
         </form>

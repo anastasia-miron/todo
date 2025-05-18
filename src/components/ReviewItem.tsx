@@ -32,7 +32,7 @@ const ReviewItem: React.FC<Props> = (props) => {
             </div>
             <Rating value={review.rating} readOnly />
         </header>
-        <blockquote>{review.comment || 'No comment'}</blockquote>
+        <blockquote>{review.comment || 'Fără comentarii'}</blockquote>
 
         <footer className="review-item__actions">
             <time className="review-item__date">{new Date(review.createdAt).toLocaleString()}</time>

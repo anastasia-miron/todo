@@ -1,7 +1,7 @@
 const NotFoundPage: React.FC = () => {
     return (
         <div>
-            <h1>Page not found</h1>
+            <h1>Pagina nu a fost gasită</h1>
         </div>
     )       
 };

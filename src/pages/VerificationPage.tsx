@@ -63,9 +63,9 @@ const VerificationPage: React.FC = () => {
             <article>
                 <div className="verification-page">
                     <CircleCheckBig className="verification-icon" />
-                    <h1 className="verification-title"> Your account has been successfully verified!</h1>
+                    <h1 className="verification-title">Contul tău a fost verificat cu succes!</h1>
                     <p className="verification-text">
-                        You can now <Link className="verification-link" to="/app">continue</Link> and start using all the features.
+                        Acum poți <Link className="verification-link" to="/app">continua</Link> și începe să folosești toate funcționalitățile.
                     </p>
                 </div>
             </article>
@@ -75,4 +75,3 @@ const VerificationPage: React.FC = () => {
 };
 
 export default VerificationPage;
-

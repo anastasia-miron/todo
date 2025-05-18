@@ -27,7 +27,7 @@ const HistoryPage: React.FC = () => {
     return (
         <div>
             <header role="group">
-            <h2>Requests history</h2>
+            <h2>Istoric cereri</h2>
             </header>
             <RequestList data={requests} isLoading={isLoading} onChange={() => {}} />
         </div>

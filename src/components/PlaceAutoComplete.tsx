@@ -128,7 +128,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       <input
         type="text"
         value={inputValue}
-        placeholder="Address in Moldova…"
+        placeholder="Adresă în Republica Molddova…"
         onChange={(e) => openAndFetch(e.target.value)}
         onKeyDown={onKeyDown}
         onFocus={() => inputValue && setIsOpen(true)}
@@ -141,7 +141,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
             ${dropDirection === "down" ? "top-full mt-1" : "bottom-full mb-1"}`}
         >
           {isPlacePredictionsLoading ? (
-            <div className="p-2">Loading…</div>
+            <div className="p-2">Se încarcă datele…</div>
           ) : placePredictions.length ? (
             placePredictions.map((p, i) => (
               <div
@@ -156,7 +156,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
               </div>
             ))
           ) : (
-            <div className="p-2">No results</div>
+            <div className="p-2">Nici un rezultat</div>
           )}
         </div>
       )}

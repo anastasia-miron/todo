@@ -50,11 +50,11 @@ export default function NotificationPermissionWarning() {
         <Bell className="mr-3 h-5 w-5 flex-shrink-0" />
         <div>
           <p>
-            Notifications are disabled. You won't receive notifications when you're not using the app.
+          Notificările sunt dezactivate. Nu vei primi notificări când nu folosești aplicația.
             {permissionState === "denied" ? (
-              <span> You've blocked notifications in your browser settings.</span>
+              <span> Notificările sunt blocate în setările browserului tău..</span>
             ) : (
-              <span> Enable notifications to stay updated.</span>
+              <span> Activați notificările pentru a primi actualizări importante.”</span>
             )}
           </p>
 
@@ -63,7 +63,7 @@ export default function NotificationPermissionWarning() {
               onClick={requestPermission}
               className="mt-2 rounded-md bg-amber-600 px-3 py-1 text-sm font-medium text-white transition-colors hover:bg-amber-700"
             >
-              Enable notifications
+              Activează notificări
             </button>
           )}
         </div>

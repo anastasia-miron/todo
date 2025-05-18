@@ -141,26 +141,26 @@ const NavBar: React.FC = () => {
           <ul dir="rtl">
             <li>
               <Link to="/app/profile" onClick={handleClose}>
-                Profile
+                Profil
               </Link>
             </li>
             <li>
               <Link to="/app/settings" onClick={handleClose}>
-                Settings
+                Setări
               </Link>
             </li>
             <li>
               <Link to="/app/history" onClick={handleClose}>
-                History
+                Istoric 
               </Link>
             </li>
             <li>
               <Link to="/app/reviews" onClick={handleClose}>
-                Reviews
+                Recenzii
               </Link>
             </li>
             <li>
-              <a onClick={handleLogout}>Logout</a>
+              <a onClick={handleLogout}>Delogare</a>
             </li>
           </ul>
         </details>

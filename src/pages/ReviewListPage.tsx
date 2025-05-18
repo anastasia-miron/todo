@@ -7,7 +7,6 @@ import useRefreshTrigger from "../hooks/useRefreshTrigger";
 import { toast } from "react-toastify";
 import useCurrentUser from "../hooks/useCurrentUser";
 
-
 const ReviewListPage: React.FC = () => {
     const { trigger } = useRefreshTrigger();
     const { user } = useCurrentUser();
@@ -25,7 +24,7 @@ const ReviewListPage: React.FC = () => {
             if (response.success) {
                 setReviews(response.data);
             } else {
-                toast.error("Failed to load reviews.");
+                toast.error("Încărcarea recenziilor a eșuat.");
             }
         })();
     }, [trigger]);
@@ -42,19 +41,19 @@ const ReviewListPage: React.FC = () => {
 
     return (
         <div className="review-list-page">
-            <h1>Reviews</h1>
+            <h1>Recenzii</h1>
             <header role="group">
                 <button
                     onClick={() => setTab('for_me')}
                     aria-current={tab === 'for_me'}
                 >
-                    For me
+                    Pentru mine
                 </button>
                 <button
                     onClick={() => setTab('by_me')}
                     aria-current={tab === 'by_me'}
                 >
-                    By me
+                    De la mine
                 </button>
             </header>
             <ReviewList reviews={list} />

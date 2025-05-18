@@ -83,8 +83,8 @@ export default function NotificationPermissionDialog() {
           </div>
           <h2 className="text-xl font-bold mb-2">Stay Updated</h2>
           <p className="text-gray-600 text-center mb-2">
-            Enable notifications to receive updates, reminders, and important
-            information.
+          Activează notificările pentru a fi la curent cu actualizările,
+           reamintirile și informațiile importante.
           </p>
 
           {!showSettingsHelp ? (
@@ -93,7 +93,7 @@ export default function NotificationPermissionDialog() {
               className="text-blue-600 text-sm flex items-center gap-1"
             >
               <Settings size={14} />
-              How to enable later from settings
+              Cum activez mai târziu din setări?
             </button>
           ) : (
             <NotificationSettingsDemo />
@@ -106,7 +106,7 @@ export default function NotificationPermissionDialog() {
             className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium flex items-center justify-center gap-2"
           >
             <Bell size={20} />
-            Enable Notifications
+            Activează notificările
           </button>
 
           <button
@@ -114,7 +114,7 @@ export default function NotificationPermissionDialog() {
             className="border border-gray-300 hover:bg-gray-100 text-gray-700 py-2 px-4 rounded-lg font-medium flex items-center justify-center gap-2"
           >
             <BellOff size={20} />
-            Not Now
+            Nu acum
           </button>
         </div>
       </div>

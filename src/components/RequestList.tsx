@@ -18,7 +18,7 @@ const RequestList: React.FC<Props> = props => {
         {data.map(item => (<RequestItem request={item} key={item.id} onChange={onChange} />))}
         {data.length === 0 && (<div className="requests-list__no-results">
             <img src="/no-results.svg" />
-            <h3>No requests</h3>
+            <h3>Nu sunt cereri disponibile</h3>
         </div>)}
     </div>)
 }

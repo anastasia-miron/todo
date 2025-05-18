@@ -29,7 +29,7 @@ const RecoveryPasswordPage: React.FC = () => {
                 return toast.error(response.message);
             }
             setEmailSent(true);
-            toast.success("Password reset link sent to your email!");
+            toast.success("Linkul pentru resetarea parolei a fost trimis pe email!");
         }
     });
 
@@ -42,9 +42,9 @@ const RecoveryPasswordPage: React.FC = () => {
                     <div className="btn-placeholder" />
                 </div>
                 <article>
-                <h1 className="recovery-page">Password recovery</h1>
+                <h1 className="recovery-page">Recuperare parolă</h1>
                 <p className="recovery-page__text">
-                 Please enter your email address. We'll send you a link to reset your password.
+                Te rugăm să introduci adresa ta de email. Îți vom trimite un link pentru a reseta parola.
                 </p>
                 <div>
                     <fieldset>
@@ -62,7 +62,7 @@ const RecoveryPasswordPage: React.FC = () => {
                     </fieldset>
                 </div>
                 <div className="recovery-page__actions">
-                    <button type="submit" disabled={emailSent}>Send Reset Link</button>
+                    <button type="submit" disabled={emailSent}>Trimite linkul de resetare</button>
                 </div>
                 </article>
             </form>

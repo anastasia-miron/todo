@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import apiService from "../services/api.service";
 import { toast } from "react-toastify";
 import { UserTypeEnum } from "../typings/models";
 import { useFormik } from "formik";
-import { userTypeSchema } from "../schemas";
+import { getUserTypeSchema } from "../schemas";
 import useCurrentUser from "../hooks/useCurrentUser";
 
 const DEFAULT_VALUE = {
@@ -15,49 +15,58 @@ const DEFAULT_VALUE = {
     skills: '',
 };
 
-const AVAILABILITY_OPTIONS = ["Full-time", "Evenings", "Weekends", "Flexible", "24/24"];
+const AVAILABILITY_OPTIONS = ["Normă întreagă", "Seara", "Weekenduri", "Program flexibil", "Disponibil 24/24"];
+
 
 const UserTypePage: React.FC = () => {
     const navigate = useNavigate();
     const {updateUser} = useCurrentUser();
 
-    const { values, setFieldValue, handleChange, handleSubmit, dirty, isValid, errors } = useFormik({
-        initialValues: DEFAULT_VALUE,
-        validationSchema: userTypeSchema,
-        onSubmit: async (data) => {
-            const response = await apiService.post<{token: string}>("/auth/complete", data);
-            if (!response.success) {
-                toast.error(response.message);
-                return;
-            }
-            updateUser(response.data.token);
-            toast.success("User type selected successfully!");
-            navigate("/app/profile");
-        },
-    });
+    const { values, setFieldValue, handleChange, handleSubmit, dirty, isValid, errors, ...formik } = useFormik({
+  initialValues: DEFAULT_VALUE,
+  enableReinitialize: true,
+  validationSchema: getUserTypeSchema(DEFAULT_VALUE.type),
+  onSubmit: async (data) => {
+    const response = await apiService.post<{token: string}>("/auth/complete", data);
+    if (!response.success) {
+      toast.error(response.message);
+      return;
+    }
+    updateUser(response.data.token);
+    toast.success("Tipul utilizatorului a fost selectat cu succes!");
+    navigate("/app/profile");
+  },
+});
+
+useEffect(() => {
+  formik.setFormikState(prev => ({
+    ...prev,
+    validationSchema: getUserTypeSchema(values.type),
+  }));
+}, [values.type]);
 
     return (
         <div className="user-type-page">
-            <h1>Select User Type</h1>
+            <h1>Selectează tipul de utilizator</h1>
             <div role="group">
                 <button
                     onClick={() => setFieldValue("type", UserTypeEnum.BENEFICIARY)}
                     aria-current={values.type === UserTypeEnum.BENEFICIARY}
                 >
-                    Beneficiary
+                    Beneficiar
                 </button>
                 <button
                     onClick={() => setFieldValue("type", UserTypeEnum.VOLUNTEER)}
                     aria-current={values.type === UserTypeEnum.VOLUNTEER}
                 >
-                    Volunteer
+                    Voluntar
                 </button>
             </div>
             {values.type !== UserTypeEnum.NONE && (
                 <article>
                     {values.type === UserTypeEnum.BENEFICIARY && (
                         <div>
-                            <label htmlFor="needs">Needs</label>
+                            <label htmlFor="needs">Necesități</label>
                             <input 
                                 id="needs" 
                                 name="needs" 
@@ -67,7 +76,7 @@ const UserTypePage: React.FC = () => {
                                 onChange={handleChange}
                              />
                             {errors.needs && <small id="error-needs">{errors.needs}</small>}
-                            <label htmlFor="location">Location</label>
+                            <label htmlFor="location">Locație</label>
                             <input 
                                 id="location" 
                                 name="location" 
@@ -81,7 +90,7 @@ const UserTypePage: React.FC = () => {
                     )}
                     {values.type === UserTypeEnum.VOLUNTEER && (
                         <div>
-                            <label htmlFor="skills">Skills</label>
+                            <label htmlFor="skills">Aptitudini</label>
                             <input 
                             id="skills" 
                             name="skills" 
@@ -91,7 +100,7 @@ const UserTypePage: React.FC = () => {
                             onChange={handleChange} 
                             />
                             {errors.skills && <small id="error-skills">{errors.skills}</small>}
-                            <label htmlFor="availability">Availability</label>
+                            <label htmlFor="availability">Disponibilitate</label>
                             <select 
                             id="availability" 
                             name="availability" 
@@ -100,7 +109,7 @@ const UserTypePage: React.FC = () => {
                             aria-describedby="error-availability"
                             value={values.availability} 
                             onChange={handleChange}>
-                                <option value="">Select availability</option>
+                                <option value="">Selectează disponibilitatea</option>
                                 {AVAILABILITY_OPTIONS.map(option => (
                                     <option key={option} value={option}>{option}</option>
                                 ))}
@@ -109,7 +118,7 @@ const UserTypePage: React.FC = () => {
                         </div>
                     )}
                     <footer>
-                        <button disabled={!dirty || !isValid} onClick={() => handleSubmit()}>Confirm</button>
+                        <button disabled={!dirty || !isValid} onClick={() => handleSubmit()}>Confirmă</button>
                     </footer>
                 </article>
             )}

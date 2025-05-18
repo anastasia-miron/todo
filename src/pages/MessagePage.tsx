@@ -15,10 +15,10 @@ function formatTime(timestamp: string) {
   const diffHours = Math.floor(diffMins / 60);
   const diffDays = Math.floor(diffHours / 24);
 
-  if (diffMins < 1) return "Just now";
-  if (diffMins < 60) return `${diffMins}m ago`;
-  if (diffHours < 24) return `${diffHours}h ago`;
-  if (diffDays < 7) return `${diffDays}d ago`;
+  if (diffMins < 1) return "Acum";
+  if (diffMins < 60) return `${diffMins}m în urmă`;
+  if (diffHours < 24) return `${diffHours}h în urmă`;
+  if (diffDays < 7) return `${diffDays}z în urmă`;
 
   return date.toLocaleDateString();
 }
@@ -86,7 +86,7 @@ export default function MessagesDashboardPage() {
           <div className="flex items-center w-full justify-between">
             <span className="flex items-center gap-2">
               <MessageSquare className="h-6 w-6 text-blue-600" />
-              <h2 className="text-2xl font-bold mb-0!">Messages</h2>
+              <h2 className="text-2xl font-bold mb-0!">Mesaje</h2>
             </span>
 
             {totalUnreadCount > 0 && (
@@ -107,21 +107,21 @@ export default function MessagesDashboardPage() {
               <input
                 type="text"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10! p-2.5! mb-0!"
-                placeholder="Search messages..."
+                placeholder="Caută mesaje..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex items-center gap-2">
               <Filter className="h-5 w-5 text-gray-500" />
-              <span className="text-sm text-gray-500">Filter:</span>
+              <span className="text-sm text-gray-500">Filtrează:</span>
               <select
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5"
                 value={activeTab}
                 onChange={(e) => setActiveTab(e.target.value)}
               >
-                <option value="all">All Messages</option>
-                <option value="unread">Unread</option>
+                <option value="all">Toate mesajele</option>
+                <option value="unread">Necitite</option>
               </select>
             </div>
           </div>
@@ -185,7 +185,7 @@ export default function MessagesDashboardPage() {
                               : "bg-red-100 text-red-800"
                           }`}
                         >
-                          {request.status.replace("_", " ")}
+                          {request.status.replace("in_progress", "În progres ")}
                         </span>
 
                         <span
@@ -197,12 +197,16 @@ export default function MessagesDashboardPage() {
                               : "bg-green-100 text-green-800"
                           }`}
                         >
-                          {request.urgency} urgency
-                        </span>
+                            {request.urgency === "high"
+                           ? "Urgență ridicată"
+                           : request.urgency === "medium"
+                           ? "Urgență medie"
+                           : "Urgență scăzută"}
+                           </span>
 
                         {request.unreadCount > 0 && (
                           <span className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium bg-red-100 text-red-800 ml-auto">
-                            {request.unreadCount} new
+                            {request.unreadCount} necitite
                           </span>
                         )}
                       </div>
@@ -265,20 +269,17 @@ export default function MessagesDashboardPage() {
             <div className="p-8 text-center">
               <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-4" />
               <h3 className="text-lg font-medium text-gray-900 mb-1">
-                No messages found
+                Nu sunt mesaje disponibile
               </h3>
               <p className="text-gray-500">
-                {searchQuery
-                  ? "No messages match your search criteria"
-                  : activeTab === "unread"
-                  ? "You don't have any unread messages"
-                  : activeTab !== "all"
-                  ? `You don't have any ${activeTab.replace(
-                      "_",
-                      " "
-                    )} requests with messages`
-                  : "You don't have any messages yet"}
-              </p>
+              {searchQuery
+              ? "Niciun mesaj nu se potrivește cu criteriile de căutare"
+               : activeTab === "unread"
+                ? "Nu ai mesaje necitite"
+               : activeTab !== "all"
+                ? `Nu ai cereri ${activeTab.replace("_", " ")} cu mesaje`
+               : "Nu ai niciun mesaj încă"}
+                </p>
             </div>
           )}
         </div>

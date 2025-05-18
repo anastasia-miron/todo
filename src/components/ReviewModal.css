@@ -5,7 +5,9 @@
 
 .review-modal__header{
     position: relative;
+    font-size: 10 px;
 }
+
 
 .review-modal__actions {
     display: flex;
@@ -28,3 +30,6 @@
     border: 0;
     outline: 0;
  }
+ .review-modal__header h2 {
+    font-size: 20px; /* sau orice dimensiune dorești */
+  }

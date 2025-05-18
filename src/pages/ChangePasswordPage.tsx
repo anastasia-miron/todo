@@ -51,14 +51,14 @@ const ChangePasswordPage: React.FC = () => {
                     <Logo className="page__logo" onClick={() => navigate("/")} />
                     <div className="btn-placeholder" />
                 </div>
-                <h1>Change Password</h1>
+                <h1>Schimbare parolă</h1>
                 <div>
                     <fieldset>
-                        <label htmlFor="newPassword">New Password</label>
+                        <label htmlFor="newPassword">Parolă nouă</label>
                         <input
                             type="password"
                             name="newPassword"
-                            placeholder="Enter new password"
+                            placeholder="Introduceți parola nouă"
                             value={values.newPassword}
                             onChange={(ev) => setFieldValue("newPassword", ev.target.value)}
                         />
@@ -66,11 +66,11 @@ const ChangePasswordPage: React.FC = () => {
                             <div className="error">{errors.newPassword}</div>
                         )}
                         
-                        <label htmlFor="repeatPassword">Repeat Password</label>
+                        <label htmlFor="repeatPassword">Reintroduceți parola</label>
                         <input
                             type="password"
                             name="repeatPassword"
-                            placeholder="Repeat new password"
+                            placeholder="Reintroduceți parola nouă"
                             value={values.repeatPassword}
                             onChange={(ev) => setFieldValue("repeatPassword", ev.target.value)}
                         />
@@ -80,7 +80,7 @@ const ChangePasswordPage: React.FC = () => {
                     </fieldset>
                 </div>
                 <div>
-                    <button type="submit" disabled={passwordChanged}>Confirm</button>
+                    <button type="submit" disabled={passwordChanged}>Confirmă</button>
                 </div>
             </form>
         </div>

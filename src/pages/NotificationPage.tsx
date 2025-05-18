@@ -140,6 +140,37 @@ export default function NotificationsPage() {
         return "gray";
     }
   };
+  const getTranslatedUrgency = (urgency: string) => {
+    switch (urgency.toLowerCase()) {
+      case "high":
+        return "Urggență ridicată";
+      case "medium":
+        return "Urgență medie";
+      case "low":
+        return "Urgență scăzută";
+      default:
+        return urgency;
+    }
+  };
+  const getTranslatedStatus = (status: NotificationStatusEnum) => {
+    switch (status) {
+      case NotificationStatusEnum.OPEN:
+        return "Disponibil";
+      case NotificationStatusEnum.IN_PROGRESS:
+        return "În progres";
+      case NotificationStatusEnum.REJECTED:
+        return "Respins";
+      case NotificationStatusEnum.CANCELED:
+        return "Anulat";
+      case NotificationStatusEnum.DONE:
+        return "Finalizat";
+      case NotificationStatusEnum.RATED:
+        return "Evaluat";
+      default:
+        return "Necunoscut";
+    }
+  };
+  
 
   const formatDate = (date: Date) => {
     const now = new Date();
@@ -147,22 +178,22 @@ export default function NotificationsPage() {
 
     // Less than a minute
     if (diff < 60000) {
-      return "Just now";
+      return "Acum";
     }
     // Less than an hour
     if (diff < 3600000) {
       const minutes = Math.floor(diff / 60000);
-      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+      return `${minutes} minute${minutes > 1 ? "s" : ""} în urmă`;
     }
     // Less than a day
     if (diff < 86400000) {
       const hours = Math.floor(diff / 3600000);
-      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+      return `${hours} hour${hours > 1 ? "s" : ""} în urmă`;
     }
     // Less than a week
     if (diff < 604800000) {
       const days = Math.floor(diff / 86400000);
-      return `${days} day${days > 1 ? "s" : ""} ago`;
+      return `${days} day${days > 1 ? "s" : ""} în urmă`;
     }
 
     // Default to date format
@@ -176,9 +207,9 @@ export default function NotificationsPage() {
       notification.status === NotificationStatusEnum.IN_PROGRESS &&
       notification.volunteerUsername
     ) {
-      actor = `Volunteer ${notification.volunteerUsername}`;
+      actor = `Voluntar ${notification.volunteerUsername}`;
     } else if (notification.beneficiaryUsername) {
-      actor = `Beneficiary ${notification.beneficiaryUsername}`;
+      actor = `Beneficiar ${notification.beneficiaryUsername}`;
     }
 
     // Special handling for ratings
@@ -187,39 +218,39 @@ export default function NotificationsPage() {
         notification.recipientRole === UserTypeEnum.VOLUNTEER &&
         notification.beneficiaryUsername
       ) {
-        return `Beneficiary ${
+        return `Beneficiarul ${
           notification.beneficiaryUsername
-        } rated your help with ${notification.rating} star${
+        } a evaluat ajutorul tău cu ${notification.rating} stele{
           notification.rating !== 1 ? "s" : ""
         }`;
       } else if (
         notification.recipientRole === UserTypeEnum.BENEFICIARY &&
         notification.volunteerUsername
       ) {
-        return `Volunteer ${
+        return `Voluntarul ${
           notification.volunteerUsername
-        } rated your request with ${notification.rating} star${
+        } a evaluat cererea ta cu ${notification.rating} stele${
           notification.rating !== 1 ? "s" : ""
         }`;
       }
-      return `Request was rated with ${notification.rating} star${
+      return `Cererea a fost evaluat cu ${notification.rating} stele${
         notification.rating !== 1 ? "s" : ""
       }`;
     }
 
     switch (notification.status) {
       case NotificationStatusEnum.OPEN:
-        return `${actor ? actor + " created a" : "A"} new request`;
+        return `${actor ? actor + " a creat o" : "A fost creată o"} cerere nouă`;
       case NotificationStatusEnum.IN_PROGRESS:
-        return `${actor ? actor + " accepted" : "Request accepted"}`;
+        return `${actor ? actor + " a acceptat" : "Cerere acceptată"}`;
       case NotificationStatusEnum.REJECTED:
-        return `${actor ? actor + " rejected" : "Request rejected"}`;
+        return `${actor ? actor + " a respins" : "Cerere respinsă"}`;
       case NotificationStatusEnum.CANCELED:
-        return `${actor ? actor + " canceled" : "Request canceled"}`;
+        return `${actor ? actor + " a anulat" : "Cerere anulată"}`;
       case NotificationStatusEnum.DONE:
-        return `${actor ? actor + " completed" : "Request completed"}`;
+        return `${actor ? actor + " a finalizat" : "Cerere finalizată"}`;
       default:
-        return `Update on request`;
+        return `Actualizare privind o cerere`;
     }
   };
 
@@ -254,43 +285,44 @@ export default function NotificationsPage() {
   const tabs = [
     {
       id: "all",
-      label: "All",
+      label: "Toate",
       count: notifications.length,
       countClass: "bg-gray-200 text-gray-800",
     },
     {
       id: "unread",
-      label: "Unread",
+      label: "Necitite",
       count: unreadCount,
       countClass: "bg-red-100 text-red-800",
     },
-    { id: "open", label: "Open", count: null, countClass: "" },
-    { id: "in_progress", label: "In Progress", count: null, countClass: "" },
-    { id: "done", label: "Done", count: null, countClass: "" },
-    { id: "canceled", label: "Canceled", count: null, countClass: "" },
-    { id: "rated", label: "Rated", count: null, countClass: "" },
+    { id: "open", label: "Disponibile", count: null, countClass: "" },
+    { id: "in_progress", label: "În progres", count: null, countClass: "" },
+    { id: "done", label: "Finalizate", count: null, countClass: "" },
+    { id: "canceled", label: "Anulate", count: null, countClass: "" },
+    { id: "rated", label: "Recenzii", count: null, countClass: "" },
   ];
 
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Notifications</h1>
+        <h1 className="text-2xl font-bold">Notificări</h1>
         {unreadCount > 0 && (
           <div
-            onClick={markAllAsRead}
-            className="text-sm cursor-pointer text-blue-600 hover:text-blue-800 font-medium"
-          >
-            Mark all as read
-          </div>
+          onClick={markAllAsRead}
+          className="w-full text-center text-sm cursor-pointer text-blue-600 hover:text-blue-800 font-medium"
+        >
+          Marchează<br /> toate ca citite
+        </div>
         )}
 
         {notifications.length > 0 && (
-          <button
-            onClick={() => deleteAllNotifications()}
-            className="text-sm text-red-600 hover:underline"
-          >
-            Clear all
-          </button>
+         <button
+  onClick={() => deleteAllNotifications()}
+  className="text-xs text-red-600 hover:underline"
+>
+  Șterge toate
+
+         </button>
         )}
       </div>
 
@@ -402,7 +434,8 @@ export default function NotificationsPage() {
                       className="flex items-center gap-1"
                     >
                       {getStatusIcon(notification.status)}
-                      <span>{notification.status.toString()}</span>
+                      <span>{getTranslatedStatus(notification.status)}</span>
+
                     </Badge>
 
                     <Badge
@@ -410,7 +443,7 @@ export default function NotificationsPage() {
                         notification.requestUrgency
                       )}
                     >
-                      {notification.requestUrgency} urgency
+                      {getTranslatedUrgency(notification.requestUrgency)}
                     </Badge>
                   </div>
 
@@ -469,10 +502,10 @@ export default function NotificationsPage() {
             </h3>
             <p className="mt-2 text-sm text-gray-500">
               {activeTab === "all"
-                ? "You don't have any notifications yet."
+                ? "Nu ai încă nici o notificare"
                 : activeTab === "unread"
-                ? "You don't have any unread notifications."
-                : `You don't have any ${activeTab} notifications.`}
+                ? "Nu ai notificări necitite."
+                : `Nu ai notificări din categoria ${activeTab}.`}
             </p>
           </div>
         )}
