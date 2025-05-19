@@ -81,7 +81,7 @@ export default function NotificationPermissionDialog() {
           <div className="p-3 bg-blue-100 rounded-full mb-4">
             <Bell className="text-blue-600" size={32} />
           </div>
-          <h2 className="text-xl font-bold mb-2">Stay Updated</h2>
+          <h2 className="text-xl font-bold mb-2">Rămâi Informat</h2>
           <p className="text-gray-600 text-center mb-2">
           Activează notificările pentru a fi la curent cu actualizările,
            reamintirile și informațiile importante.

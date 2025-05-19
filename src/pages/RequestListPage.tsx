@@ -82,9 +82,9 @@ const RequestListPage: React.FC = () => {
                         onClick={() => setTab('my')}
                         aria-current={tab === 'my'}
                     >
-                        Cereri acceptate
+                        Cererile mele
                     </button></> :
-                    <h2>Cereri acceptate</h2>}
+                    <h2>Cererile mele</h2>}
             </header>
             <RequestList data={filteredList} isLoading={isLoading} onChange={handleChanges} />
             {user?.type === UserTypeEnum.BENEFICIARY && (
